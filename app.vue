@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1 class="text-3xl">
-    Hello world!
-  </h1>
+    <v-card title="Palmeiras" text=PALEMIRAS></v-card>
 </div>
 </template>

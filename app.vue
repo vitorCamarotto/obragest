@@ -1,5 +1,7 @@
 <template>
   <div>
-    <v-card title="Palmeiras" text=PALEMIRAS></v-card>
-</div>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>

@@ -1,35 +1,51 @@
 <template>
-  <v-card>
-    <v-layout>
-      <v-app-bar title="ObraGest"></v-app-bar>
-
-      <v-navigation-drawer>
-        <v-list>
-          <v-list-item title="Navigation drawer"></v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-
-      <v-main style="min-height: 300px;">
-        <v-btn variant="outlined" @click="createUser">
-          Button
-        </v-btn>
-      </v-main>
-    </v-layout>
+  <v-card class="mx-auto px-6 py-8" max-width="344">
+    <v-form v-model="valid">
+      <v-text-field
+        v-model="email"
+        class="mb-2"
+        clearable
+        label="Email"
+      />
+      <v-text-field
+        v-model="password"
+        clearable
+        label="Password"
+        placeholder="Enter your password"
+      />
+      <v-btn
+        @click.prevent="signUp()"
+        block
+        color="success"
+        size="large"
+        type="submit"
+        variant="elevated"
+      >
+        Sign In
+      </v-btn>
+    </v-form>
   </v-card>
 </template>
 
 <script>
-
-export default {
-  methods: {
-    async createUser () {
-      try {
-        await $fetch('/api/user/create')
-      } catch (error) {
-        console.error(error)
+  export default {
+    data () {
+      return {
+        valid: false,
+        email: '',
+        password: ''
+      }
+    },
+    methods: {
+      async signUp () {
+        const { user } = await this.client.auth.signUp({
+          email: this.email,
+          password: this.password
+        })
       }
     }
   }
-}
+
+
 
 </script>

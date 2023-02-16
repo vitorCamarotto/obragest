@@ -16,26 +16,25 @@
   definePageMeta({
     middleware: ['auth']
   })
-</script>
 
-<script>
-export default {
-  setup () {
-    const client = useSupabaseClient()
+  const client = useSupabaseClient()
 
-    return {
-      client
-    }
-  },
-  methods: {
-    async signOut () {
-      try {
-        await this.client.auth.signOut()
-      } catch (error) {
-        console.error(error)
-      }
+  const signOut = async () => {
+    try {
+      await client.auth.signOut()
+    } catch (error) {
+      console.error(error)
     }
   }
-}
+
+  const user = useSupabaseUser()
+
+  onMounted(() => {
+    watchEffect(() => {
+      if (!user.value) {
+        return navigateTo('/auth/login')
+      }
+    })
+  })
 
 </script>

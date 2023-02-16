@@ -38,14 +38,22 @@
     },
     methods: {
       async signUp () {
-        const { user } = await this.client.auth.signUp({
-          email: this.email,
-          password: this.password
-        })
+
+        try {
+          await this.client.auth.signUp({
+            email: this.email,
+            password: this.password
+          })
+        } catch (error) {
+          console.error(error)
+        }
       }
     }
   }
+</script>
 
-
-
+<script setup>
+  definePageMeta({
+    middleware: ['auth']
+  })
 </script>

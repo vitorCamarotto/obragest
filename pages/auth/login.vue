@@ -9,6 +9,7 @@
       />
       <v-text-field
         v-model="password"
+        type="password"
         clearable
         label="Password"
         placeholder="Enter your password"
@@ -25,57 +26,30 @@
       </v-btn>
     </v-form>
   </v-card>
-
-
-  <v-btn
-    @click.prevent="signOut()"
-    block
-    color="success"
-    size="large"
-    type="submit"
-    variant="elevated"
-    class="mt-5"
-  >
-    Log Out
-  </v-btn>
 </template>
 
-<script>
-  export default {
-    data () {
-      return {
-        valid: false,
-        email: '',
-        password: ''
-      }
-    },
-    setup () {
-      const client = useSupabaseClient()
+<script setup>
+  const email = ref('')
+  const password = ref('')
+  const valid = ref(false)
 
-      return {
-        client
-      }
-    },
-    methods: {
-      async signIn () {
-        try {
-         await this.client.auth.signInWithPassword({
-            email: this.email,
-            password: this.password
-          })
+  const client = useSupabaseClient()
+  const user = useSupabaseUser()
 
-          await navigateTo('/construction')
-        } catch (error) {
-          console.error(error)
-        }
-      },
-      async signOut () {
-      try {
-        await this.client.auth.signOut()
-      } catch (error) {
-        console.error(error)
-      }
-    }
+  const signIn = async () => {
+    try {
+      await client.auth.signInWithPassword({
+        email: email.value,
+        password: password.value
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
+
+  watchEffect(() => {
+    if (user.value) {
+      return navigateTo('/construction')
+    }
+  })
 </script>

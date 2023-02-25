@@ -5,20 +5,20 @@ const prisma = new PrismaClient()
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
-
   const body = await readBody(event)
 
   try {
     await prisma.construction.create({
       data: {
-        name: body.name
+        name: body.name,
+        users: { connect: { id: user?.id } }
       }
     })
     return { response: 'ok'}
   } catch (error) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'Falha ao criar usuário'
+      statusMessage: 'Falha ao criar obra'
     })
   }
 })

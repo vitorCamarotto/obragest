@@ -51,19 +51,25 @@
       console.error(error)
     }
   }
+  const loggedUser = useSupabaseUser()
 
-  const user = useSupabaseUser()
   onMounted(() => {
     watchEffect(() => {
-      if (!user.value) {
+      if (!loggedUser.value) {
         return navigateTo('/auth/login')
       }
     })
   })
 
   const addConstruction = async () => {
-    await $fetch('/api/construction/create', { method: 'POST', body: { name: constructionName.value }})
-    console.log('nome', constructionName.value)
+    await $fetch('/api/construction/create', {
+      method: 'POST',
+        body: {
+          name: constructionName.value,
+          userId: loggedUser.value.id
+        }
+      }
+    )
   }
 
 </script>

@@ -47,9 +47,11 @@
     }
   }
 
-  watchEffect(() => {
-    if (user.value) {
-      return navigateTo('/construction')
-    }
+  onMounted(() => {
+    watchEffect(() => {
+      if (user.value) {
+        return navigateTo('/construction')
+      }
+    })
   })
 </script>

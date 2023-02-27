@@ -5,20 +5,22 @@ const prisma = new PrismaClient()
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event)
-  const body = await readBody(event)
 
   try {
-    await prisma.construction.create({
-      data: {
-        name: body.name,
-        user_id: user?.id
+    const constructions = await prisma.construction.findMany({
+      where: {
+        user_id: user?.id,
       }
     })
-    return { response: 'ok'}
+
+    return eval(JSON.stringify(constructions, (key, value) =>
+    typeof value === 'bigint' ? value.toString() : value,
+    ))
+
   } catch (error) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'Falha ao criar obra'
+      statusMessage: 'Falha ao adquirir obras'
     })
   }
 })

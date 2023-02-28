@@ -1,38 +1,69 @@
 <template>
+  <v-app id="inspire">
+    <v-app-bar
+      app
+      extended
+    >
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-  <h3 class="flex justify-center text-h3 mt-4">Adicionar nova Obra</h3>
-  <v-card class="mx-auto px-6 py-8" max-width="344">
-    <v-form v-model="valid">
-      <v-text-field
-        v-model="constructionName"
-        class="mb-2"
-        clearable
-        label="Nome da obra"
-      />
-      <v-btn
-        @click.prevent="addConstruction()"
-        block
-        color="success"
-        size="large"
-        type="submit"
-        variant="elevated"
-      >
-        Adicionar Obra
+      <v-toolbar-title>ObraGest</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
-    </v-form>
-  </v-card>
+    </v-app-bar>
 
-  <v-btn
-    @click.prevent="signOut()"
-    block
-    color="success"
-    size="large"
-    type="submit"
-    variant="elevated"
-    class="mt-5"
-  >
-    Log Out
-  </v-btn>
+    <v-main>
+      <v-card class="mx-auto px-6 py-8" max-width="344">
+      <v-form v-model="valid">
+        <v-text-field
+          v-model="constructionName"
+          class="mb-2"
+          clearable
+          label="Nome da obra"
+        />
+        <v-btn
+          @click.prevent="addConstruction()"
+
+          color="success"
+          size="large"
+          type="submit"
+          variant="elevated"
+        >
+          Adicionar Obra
+        </v-btn>
+      </v-form>
+    </v-card>
+      <v-container>
+        <v-row>
+          <v-col
+            v-for="item in cardConstructions"
+            :key="item"
+            cols="12"
+          >
+            <v-card height="200">
+              {{ item }}
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
+
+  <div class="flex justify-center">
+    <v-btn
+      @click.prevent="signOut()"
+      color="success"
+      size="large"
+      type="submit"
+      variant="elevated"
+      class="mt-5 w-1/3"
+    >
+      Log Out
+    </v-btn>
+  </div>
 </template>
 
 <script setup>
@@ -42,6 +73,7 @@
 
   const constructionName = ref('')
   const valid = ref(false)
+  const cardConstructions = ref(new Set())
 
   const client = useSupabaseClient()
   const signOut = async () => {
@@ -59,10 +91,12 @@
         return navigateTo('/auth/login')
       }
     })
+
+    fetchConstructions()
   })
 
   const addConstruction = async () => {
-    await $fetch('/api/construction/create', {
+    const response = await $fetch('/api/construction/create', {
       method: 'POST',
         body: {
           name: constructionName.value,
@@ -70,6 +104,16 @@
         }
       }
     )
+
+    fetchConstructions()
+  }
+
+  const fetchConstructions = async () => {
+    const fetchedConstructions = await $fetch('/api/construction/getAll')
+
+    fetchedConstructions.forEach(element => {
+      cardConstructions.value.add(element.name)
+    });
   }
 
 </script>

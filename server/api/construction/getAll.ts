@@ -13,8 +13,8 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    return eval(JSON.stringify(constructions, (key, value) =>
-    typeof value === 'bigint' ? value.toString() : value,
+    return JSON.parse(JSON.stringify(constructions, (key, value) =>
+      typeof value === 'bigint' ? value.toString() : value,
     ))
 
   } catch (error) {

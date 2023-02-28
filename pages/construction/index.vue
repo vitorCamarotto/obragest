@@ -1,31 +1,12 @@
 <template>
   <v-app id="inspire">
-    <v-card class="mx-auto px-6 py-8" max-width="344">
-      <v-form v-model="valid">
-        <v-text-field
-          v-model="constructionName"
-          class="mb-2"
-          clearable
-          label="Nome da obra"
-        />
-        <v-btn
-          @click.prevent="addConstruction()"
-          color="success"
-          size="large"
-          type="submit"
-          variant="elevated"
-        >
-          Adicionar Obra
-        </v-btn>
-      </v-form>
-    </v-card>
     <v-app-bar
       app
       extended
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>ObraGest</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -35,12 +16,32 @@
     </v-app-bar>
 
     <v-main>
+      <v-card class="mx-auto px-6 py-8" max-width="344">
+      <v-form v-model="valid">
+        <v-text-field
+          v-model="constructionName"
+          class="mb-2"
+          clearable
+          label="Nome da obra"
+        />
+        <v-btn
+          @click.prevent="addConstruction()"
+
+          color="success"
+          size="large"
+          type="submit"
+          variant="elevated"
+        >
+          Adicionar Obra
+        </v-btn>
+      </v-form>
+    </v-card>
       <v-container>
         <v-row>
           <v-col
-            v-for="item in tableConstructions"
+            v-for="item in cardConstructions"
             :key="item"
-            cols="6"
+            cols="12"
           >
             <v-card height="200">
               {{ item }}
@@ -72,7 +73,7 @@
 
   const constructionName = ref('')
   const valid = ref(false)
-  const tableConstructions = ref(new Set())
+  const cardConstructions = ref(new Set())
 
   const client = useSupabaseClient()
   const signOut = async () => {
@@ -108,10 +109,10 @@
   }
 
   const fetchConstructions = async () => {
-    const fetchedConstructions = await $fetch('/api/construction/get')
+    const fetchedConstructions = await $fetch('/api/construction/getAll')
 
     fetchedConstructions.forEach(element => {
-      tableConstructions.value.add(element.name)
+      cardConstructions.value.add(element.name)
     });
   }
 

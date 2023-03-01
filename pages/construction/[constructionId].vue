@@ -1,15 +1,18 @@
 <template>
-  <div>
-    <div class="prose flex justify-center mt-4">
+  <div class="flex flex-col">
+    <div class="prose justify-center mt-4">
       <h2> Obra: {{ construction.name }} </h2>
     </div>
 
-    <div class="prose flex justify-center mt-4">
+    <div class="prose mt-4">
       <h3>
         Custos
       </h3>
     </div>
 
+    <div class="">
+      <Icon name="material-symbols:add-circle-rounded" size="40px" class="text-green"/>
+    </div>
     <ExpensesTable :expenses="expenses"/>
   </div>
 </template>

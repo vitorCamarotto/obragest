@@ -43,9 +43,11 @@
             :key="item"
             cols="12"
           >
-            <v-card height="200">
-              {{ item }}
-            </v-card>
+            <NuxtLink :to="`/construction/${item.id}`">
+              <v-card height="200">
+                {{ item.name }}
+              </v-card>
+            </NuxtLink>
           </v-col>
         </v-row>
       </v-container>
@@ -112,7 +114,11 @@
     const fetchedConstructions = await $fetch('/api/construction/getAll')
 
     fetchedConstructions.forEach(element => {
-      cardConstructions.value.add(element.name)
+      const construction = {
+        name: element.name,
+        id: element.id
+      }
+      cardConstructions.value.add(construction)
     });
   }
 

@@ -1,22 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-app-bar
-      app
-      extended
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-toolbar-title>ObraGest</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <v-card class="mx-auto px-6 py-8" max-width="344">
+  <div class="mt-5">
+    <v-card class="mx-auto px-6 py-8" max-width="344">
       <v-form v-model="valid">
         <v-text-field
           v-model="constructionName"
@@ -26,8 +10,7 @@
         />
         <v-btn
           @click.prevent="addConstruction()"
-
-          color="success"
+          class="bg-white"
           size="large"
           type="submit"
           variant="elevated"
@@ -36,36 +19,33 @@
         </v-btn>
       </v-form>
     </v-card>
-      <v-container>
-        <v-row>
-          <v-col
-            v-for="item in cardConstructions"
-            :key="item"
-            cols="12"
-          >
-            <NuxtLink :to="`/construction/${item.id}`">
-              <v-card height="200">
-                {{ item.name }}
-              </v-card>
-            </NuxtLink>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
-
-  <div class="flex justify-center">
-    <v-btn
-      @click.prevent="signOut()"
-      color="success"
-      size="large"
-      type="submit"
-      variant="elevated"
-      class="mt-5 w-1/3"
-    >
-      Log Out
-    </v-btn>
   </div>
+  <v-container>
+    <v-row>
+      <v-col
+        v-for="item in cardConstructions"
+        :key="item"
+        cols="12"
+        class="flex justify-center"
+
+      >
+        <NuxtLink :to="`/construction/${item.id}`">
+          <div class="">
+            <v-card
+              height="200"
+              width="500"
+              variant="tonal"
+              :title="item.name"
+            >
+              <v-card-actions>
+                <v-btn></v-btn>
+              </v-card-actions>
+          </v-card>
+          </div>
+        </NuxtLink>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script setup>
@@ -77,14 +57,6 @@
   const valid = ref(false)
   const cardConstructions = ref(new Set())
 
-  const client = useSupabaseClient()
-  const signOut = async () => {
-    try {
-      await client.auth.signOut()
-    } catch (error) {
-      console.error(error)
-    }
-  }
   const loggedUser = useSupabaseUser()
 
   onMounted(() => {

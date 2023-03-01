@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col">
-    <div class="prose justify-center mt-4">
+  <div class="flex flex-col align-center">
+    <div class="prose mt-4">
       <h2> Obra: {{ construction.name }} </h2>
     </div>
 
@@ -10,10 +10,19 @@
       </h3>
     </div>
 
-    <div class="">
-      <Icon name="material-symbols:add-circle-rounded" size="40px" class="text-green"/>
+    <div class="mt-4">
+      <v-btn class="bg-white">
+        <Icon
+          name="material-symbols:add-circle-rounded"
+          size="24px"
+          class="text-blue mr-2"
+          />
+        Novo Custo
+      </v-btn>
     </div>
-    <ExpensesTable :expenses="expenses"/>
+
+    <ExpensesTable :expenses="expenses" class="mt-4"/>
+
   </div>
 </template>
 

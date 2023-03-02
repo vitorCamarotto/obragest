@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css', 'vuetify/lib/styles/main.sass'],
   postcss: {
     plugins: {
-      tailwindcss: { config: './tailwind.config.js' },
+      tailwindcss: {},
       autoprefixer: {},
     },
   },

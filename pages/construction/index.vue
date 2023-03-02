@@ -32,9 +32,9 @@
         <NuxtLink :to="`/construction/${item.id}`">
           <div class="">
             <v-card
+              class="bg-amber-lighten-4"
               height="200"
               width="500"
-              variant="tonal"
               :title="item.name"
             >
               <v-card-actions>

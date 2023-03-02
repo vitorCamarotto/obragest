@@ -15,7 +15,7 @@
         <Icon
           name="material-symbols:add-circle-rounded"
           size="24px"
-          class="text-blue mr-2"
+          class="text-amber-lighten-2 mr-2"
           />
         Novo Custo
       </v-btn>

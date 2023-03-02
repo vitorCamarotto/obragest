@@ -22,10 +22,16 @@
         type="submit"
         variant="elevated"
       >
-        Sign In
+        Entrar
       </v-btn>
     </v-form>
   </v-card>
+
+  <div class="flex justify-center mt-5">
+    <NuxtLink :to="'/auth/signup'" class="font-medium text-blue-600 hover:underline">
+      Crie sua conta
+    </NuxtLink>
+  </div>
 </template>
 
 <script setup>

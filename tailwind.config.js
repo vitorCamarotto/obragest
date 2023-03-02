@@ -9,7 +9,15 @@ module.exports = {
     "./app.vue",
   ],
   theme: {
-    extend: {},
+    colors: {
+      "stone": "#a8a29e",
+      "teal": {
+        50: "#f0fdfa",
+        100: "#d1fae5",
+        200: "#a7f3d0",
+        900: "#134e4a"
+      }
+    }
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

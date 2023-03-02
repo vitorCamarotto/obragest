@@ -1,88 +1,37 @@
 <template>
-  <v-app id="inspire">
-    <v-app-bar
-      app
-      extended
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+  <div class="mt-5">
+    <div class="prose">
+      <h1 class="ml-3">
+        Suas Obras
+      </h1>
+    </div>
 
-      <v-toolbar-title>ObraGest</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <v-card class="mx-auto px-6 py-8" max-width="344">
-      <v-form v-model="valid">
-        <v-text-field
-          v-model="constructionName"
-          class="mb-2"
-          clearable
-          label="Nome da obra"
+    <div class="flex justify-center mt-4">
+      <v-btn
+        class="bg-white"
+        v-if="!showForm"
+        @click="showForm = true"
+      >
+      <Icon
+          name="material-symbols:add-circle-rounded"
+          size="24px"
+          class="text-amber-lighten-2 mr-2"
         />
-        <v-btn
-          @click.prevent="addConstruction()"
+        Nova Obra
+      </v-btn>
+    </div>
 
-          color="success"
-          size="large"
-          type="submit"
-          variant="elevated"
-        >
-          Adicionar Obra
-        </v-btn>
-      </v-form>
-    </v-card>
-      <v-container>
-        <v-row>
-          <v-col
-            v-for="item in cardConstructions"
-            :key="item"
-            cols="12"
-          >
-            <v-card height="200">
-              {{ item }}
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
-
-  <div class="flex justify-center">
-    <v-btn
-      @click.prevent="signOut()"
-      color="success"
-      size="large"
-      type="submit"
-      variant="elevated"
-      class="mt-5 w-1/3"
-    >
-      Log Out
-    </v-btn>
+    <ConstructionForm v-if="showForm" @on-form-submit="addConstruction" />
+    <ConstructionCards :constructions="cardConstructions" />
   </div>
 </template>
 
 <script setup>
+  // initial setup
   definePageMeta({
     middleware: ['auth']
   })
 
-  const constructionName = ref('')
-  const valid = ref(false)
-  const cardConstructions = ref(new Set())
-
-  const client = useSupabaseClient()
-  const signOut = async () => {
-    try {
-      await client.auth.signOut()
-    } catch (error) {
-      console.error(error)
-    }
-  }
   const loggedUser = useSupabaseUser()
 
   onMounted(() => {
@@ -95,25 +44,45 @@
     fetchConstructions()
   })
 
-  const addConstruction = async () => {
-    const response = await $fetch('/api/construction/create', {
-      method: 'POST',
-        body: {
-          name: constructionName.value,
-          userId: loggedUser.value.id
-        }
-      }
-    )
+  // refs
+  const showForm = ref(false)
+  const cardConstructions = ref(new Array())
 
-    fetchConstructions()
-  }
-
-  const fetchConstructions = async () => {
+  // methods
+  async function fetchConstructions () {
     const fetchedConstructions = await $fetch('/api/construction/getAll')
 
     fetchedConstructions.forEach(element => {
-      cardConstructions.value.add(element.name)
-    });
+      const construction = {
+        id: element.id,
+        name: element.name
+      }
+      cardConstructions.value.push(construction)
+    })
   }
 
+  async function addConstruction(name) {
+    try {
+      const response = await $fetch('/api/construction/create', {
+        method: 'POST',
+          body: {
+            name: name.value,
+            userId: loggedUser.value.id
+          }
+        }
+      )
+
+      if (response) {
+        const newConstruction = {
+          id: response.id,
+          name: response.name
+        }
+
+        name.value = ''
+        cardConstructions.value.push(newConstruction)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 </script>

@@ -1,6 +1,7 @@
 <template>
   <v-card class="my-5 mx-auto px-6 py-8" max-width="344">
       <v-form
+        v-model="valid"
         ref="form"
         validate-on="input"
       >

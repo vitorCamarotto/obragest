@@ -21,7 +21,11 @@
       </v-btn>
     </div>
 
-    <ConstructionForm v-if="showForm"></ConstructionForm>
+    <ConstructionForm
+      v-if="showForm"
+      @on-form-submit="addConstruction"
+    />
+
     <ConstructionCards :constructions="cardConstructions"></ConstructionCards>
   </div>
 </template>
@@ -59,6 +63,28 @@
       }
       cardConstructions.value.push(construction)
     })
+  }
+
+  async function addConstruction(name) {
+    console.log('BRASIILLL', name)
+    const response = await $fetch('/api/construction/create', {
+      method: 'POST',
+        body: {
+          name: name.value,
+          userId: loggedUser.value.id
+        }
+      }
+    )
+
+    if (response) {
+      const newConstruction = {
+        id: response.id,
+        name: response.name
+      }
+
+      name.value = ''
+      cardConstructions.value.push(newConstruction)
+    }
   }
 
 </script>

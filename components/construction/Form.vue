@@ -2,14 +2,14 @@
   <v-card class="my-5 mx-auto px-6 py-8" max-width="344">
       <v-form v-model="form" validate-on="submit">
         <v-text-field
-          v-model="constructionName"
+          v-model="name"
           :rules="nameRules"
           class="mb-2"
           clearable
           label="Nome da obra"
         />
         <v-btn
-          @click.prevent="addConstruction()"
+          @click="onSubmit"
           class="bg-white"
           size="large"
           type="submit"
@@ -22,28 +22,22 @@
 </template>
 
 <script setup>
-  const addConstruction = async () => {
-    const response = await $fetch('/api/construction/create', {
-      method: 'POST',
-        body: {
-          name: constructionName.value,
-          userId: loggedUser.value.id
-        }
-      }
-    )
+  const name = ref('')
+  const form = ref(false)
 
-    if (response) {
-      const newConstruction = {
-        id: response.id,
-        name: response.name
-      }
+  const emit = defineEmits([
+    'onFormSubmit'
+  ])
 
-      constructionName.value = ''
-      cardConstructions.value.push(newConstruction)
-    }
+  function onSubmit() {
+    emit('onFormSubmit', name)
   }
+
+  const nameRules = [
+    value => {
+      if (value) return true
+
+      return 'Name is requred.'
+    }
+  ]
 </script>
-
-<style>
-
-</style>

@@ -21,6 +21,8 @@
       </v-btn>
     </div>
 
+    <NuxtPage></NuxtPage>
+
     <ExpensesTable :expenses="expenses" class="mt-4"/>
 
   </div>

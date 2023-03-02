@@ -18,7 +18,7 @@
           v-for="expense in expenses"
           :key="expense"
         >
-          <td>{{ expense.amount }}</td>
+          <td>R$ {{ expense.amount / 100 }}</td>
           <td>{{ expense.type }}</td>
           <td>{{ expense.description }}</td>
         </tr>

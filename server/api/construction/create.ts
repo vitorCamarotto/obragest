@@ -8,13 +8,16 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
   try {
-    await prisma.construction.create({
+    const construction = await prisma.construction.create({
       data: {
         name: body.name,
         user_id: user?.id
       }
     })
-    return { response: 'ok'}
+
+    return JSON.parse(JSON.stringify(construction, (key, value) =>
+      typeof value === 'bigint' ? value.toString() : value,
+    ))
   } catch (error) {
     throw createError({
       statusCode: 500,

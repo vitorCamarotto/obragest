@@ -4,6 +4,7 @@
       <v-form v-model="valid">
         <v-text-field
           v-model="constructionName"
+          :rules="nameRules"
           class="mb-2"
           clearable
           label="Nome da obra"
@@ -25,8 +26,7 @@
       <v-col
         v-for="item in cardConstructions"
         :key="item"
-        cols="12"
-        class="flex justify-center"
+        cols="3"
 
       >
         <NuxtLink :to="`/construction/${item.id}`">
@@ -34,7 +34,6 @@
             <v-card
               class="bg-amber-lighten-4"
               height="200"
-              width="500"
               :title="item.name"
             >
               <v-card-actions>
@@ -55,7 +54,7 @@
 
   const constructionName = ref('')
   const valid = ref(false)
-  const cardConstructions = ref(new Set())
+  const cardConstructions = ref(new Array())
 
   const loggedUser = useSupabaseUser()
 
@@ -79,19 +78,34 @@
       }
     )
 
-    fetchConstructions()
+    if (response) {
+      const newConstruction = {
+        id: response.id,
+        name: response.name
+      }
+      cardConstructions.value.push(newConstruction)
+    }
   }
 
   const fetchConstructions = async () => {
     const fetchedConstructions = await $fetch('/api/construction/getAll')
+    let constructionsArray = []
 
     fetchedConstructions.forEach(element => {
       const construction = {
-        name: element.name,
-        id: element.id
+        id: element.id,
+        name: element.name
       }
-      cardConstructions.value.add(construction)
-    });
+      cardConstructions.value.push(construction)
+
+    })
   }
+
+  const nameRules = ref([
+    value => {
+      if (value) return true
+
+      return 'Name is requred.'
+  }])
 
 </script>

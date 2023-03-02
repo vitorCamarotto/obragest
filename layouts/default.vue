@@ -5,7 +5,13 @@
       elevation="8"
       class="bg-amber-lighten-2"
     >
-      <v-app-bar-nav-icon class="bg-white"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="bg-white">
+        <Icon
+          name="material-symbols:other-houses-outline"
+          size="40px"
+          class="text-amber-lighten-2 mb-1"
+          />
+      </v-app-bar-nav-icon>
       <NuxtLink :to="'/'">
         <div class="prose">
           <v-toolbar-title class="ml-3">ObraGest</v-toolbar-title>

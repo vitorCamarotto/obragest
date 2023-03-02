@@ -17,7 +17,7 @@
       <v-btn
         @click.prevent="signIn()"
         block
-        color="success"
+        class="bg-amber-lighten-2"
         size="large"
         type="submit"
         variant="elevated"

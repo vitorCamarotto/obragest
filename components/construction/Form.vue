@@ -1,17 +1,18 @@
 <template>
   <v-card class="my-5 mx-auto px-6 py-8" max-width="344">
-      <v-form
-        v-model="valid"
-        ref="form"
-        validate-on="input"
-      >
-        <v-text-field
-          v-model="name"
-          :rules="nameRules"
-          class="mb-2"
-          label="Nome da obra"
-          clearable
-        />
+    <v-form
+      v-model="valid"
+      ref="form"
+      validate-on="input"
+    >
+      <v-text-field
+        v-model="name"
+        :rules="nameRules"
+        class="mb-2"
+        label="Nome da obra"
+        clearable
+      />
+      <div class="flex justify-center">
         <v-btn
           @click.prevent="submit"
           class="bg-white"
@@ -20,8 +21,9 @@
         >
           Adicionar Obra
         </v-btn>
-      </v-form>
-    </v-card>
+      </div>
+    </v-form>
+  </v-card>
 </template>
 
 <script setup>

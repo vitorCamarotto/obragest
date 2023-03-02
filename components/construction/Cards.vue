@@ -7,20 +7,16 @@
         cols="12"
 
       >
-        <NuxtLink :to="`/construction/${item.id}`">
-          <div class="flex justify-center">
+        <div class="flex justify-center">
+          <NuxtLink :to="`/construction/${item.id}`">
             <v-card
               class="bg-amber-lighten-4"
               height="200"
               width="300"
               :title="item.name"
-            >
-              <v-card-actions>
-                <v-btn></v-btn>
-              </v-card-actions>
-          </v-card>
-          </div>
-        </NuxtLink>
+            ></v-card>
+          </NuxtLink>
+        </div>
       </v-col>
     </v-row>
   </v-container>

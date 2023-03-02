@@ -8,10 +8,11 @@
 
       >
         <NuxtLink :to="`/construction/${item.id}`">
-          <div class="">
+          <div class="flex justify-center">
             <v-card
               class="bg-amber-lighten-4"
               height="200"
+              width="300"
               :title="item.name"
             >
               <v-card-actions>
@@ -35,7 +36,3 @@ defineProps({
 })
 
 </script>
-
-<style>
-
-</style>

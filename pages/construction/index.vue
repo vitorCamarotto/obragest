@@ -21,12 +21,8 @@
       </v-btn>
     </div>
 
-    <ConstructionForm
-      v-if="showForm"
-      @on-form-submit="addConstruction"
-    />
-
-    <ConstructionCards :constructions="cardConstructions"></ConstructionCards>
+    <ConstructionForm v-if="showForm" @on-form-submit="addConstruction" />
+    <ConstructionCards :constructions="cardConstructions" />
   </div>
 </template>
 
@@ -53,7 +49,7 @@
   const cardConstructions = ref(new Array())
 
   // methods
-  const fetchConstructions = async () => {
+  async function fetchConstructions () {
     const fetchedConstructions = await $fetch('/api/construction/getAll')
 
     fetchedConstructions.forEach(element => {
@@ -66,25 +62,27 @@
   }
 
   async function addConstruction(name) {
-    console.log('BRASIILLL', name)
-    const response = await $fetch('/api/construction/create', {
-      method: 'POST',
-        body: {
-          name: name.value,
-          userId: loggedUser.value.id
+    try {
+      const response = await $fetch('/api/construction/create', {
+        method: 'POST',
+          body: {
+            name: name.value,
+            userId: loggedUser.value.id
+          }
         }
-      }
-    )
+      )
 
-    if (response) {
-      const newConstruction = {
-        id: response.id,
-        name: response.name
-      }
+      if (response) {
+        const newConstruction = {
+          id: response.id,
+          name: response.name
+        }
 
-      name.value = ''
-      cardConstructions.value.push(newConstruction)
+        name.value = ''
+        cardConstructions.value.push(newConstruction)
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
-
 </script>

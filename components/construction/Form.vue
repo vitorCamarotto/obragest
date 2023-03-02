@@ -1,18 +1,20 @@
 <template>
   <v-card class="my-5 mx-auto px-6 py-8" max-width="344">
-      <v-form v-model="form" validate-on="submit">
+      <v-form
+        ref="form"
+        validate-on="input"
+      >
         <v-text-field
           v-model="name"
           :rules="nameRules"
           class="mb-2"
-          clearable
           label="Nome da obra"
+          clearable
         />
         <v-btn
-          @click="onSubmit"
+          @click.prevent="submit"
           class="bg-white"
           size="large"
-          type="submit"
           variant="elevated"
         >
           Adicionar Obra
@@ -22,22 +24,29 @@
 </template>
 
 <script setup>
+  const form = ref(null)
+  const valid = ref(false)
   const name = ref('')
-  const form = ref(false)
+  const nameRules = [
+      v => !!v || 'Nome da obra é obrigatório',
+      v => (v && v.length <= 20) || 'O nome deve ter no máximo 20 caracteres',
+  ]
 
   const emit = defineEmits([
     'onFormSubmit'
   ])
 
-  function onSubmit() {
-    emit('onFormSubmit', name)
-  }
-
-  const nameRules = [
-    value => {
-      if (value) return true
-
-      return 'Name is requred.'
+  function validate() {
+      form.value.validate().then(isValid => {
+        valid.value = isValid
+      })
     }
-  ]
+
+  function submit() {
+    validate()
+
+    if (valid.value) {
+      emit('onFormSubmit', name)
+    }
+  }
 </script>

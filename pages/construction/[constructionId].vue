@@ -25,7 +25,7 @@
       </v-btn>
     </div>
 
-    <Transition name="slide-fade">
+    <Transition name="blur">
       <ExpenseForm v-if="showForm" @on-form-submit="createExpense" />
     </Transition>
 
@@ -50,7 +50,7 @@
 
   const showForm = ref(false)
   const construction = await getConstruction()
-  const expenses = new Set(await getExpenses())
+  const expenses = ref(new Set(await getExpenses()))
 
   // methods
   async function getConstruction () {
@@ -73,23 +73,37 @@
     }
   }
 
-  function createExpense (params) {
-    console.log('params', params.type)
+  async function createExpense (params) {
+    try {
+      const response = await $fetch(`/api/construction/${constructionId}/expense/create`, {
+        method: 'POST',
+          body: {
+            amount: params.amount,
+            description: params.description,
+            type: params.type,
+            date: params.date
+        }
+      })
+
+      if (response) {
+        expenses.value.add(response)
+      }
+
+
+    } catch (error) {
+      console.error(error)
+    }
   }
 </script>
 
 <style>
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
+.blur-enter-active,
+.blur-leave-active {
+  transition: all 0.4s;
 }
-
-.slide-fade-leave-active {
-  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
+.blur-enter-from,
+.blur-leave-to {
   opacity: 0;
+  filter: blur(1rem);
 }
 </style>

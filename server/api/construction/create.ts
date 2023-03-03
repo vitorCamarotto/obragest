@@ -20,6 +20,7 @@ export default defineEventHandler(async (event) => {
         typeof value === 'bigint' ? value.toString() : value,
       ))
     } catch (error) {
+      console.error(error)
       throw createError({
         statusCode: 500,
         statusMessage: 'Falha ao criar obra'

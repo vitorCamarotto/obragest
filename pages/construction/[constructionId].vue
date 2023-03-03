@@ -35,6 +35,16 @@
 </template>
 
 <script setup>
+  const loggedUser = useSupabaseUser()
+
+  onMounted(() => {
+    watchEffect(() => {
+      if(!loggedUser.value) {
+        return navigateTo('/auth/login')
+      }
+    })
+  })
+
   // consts
   const constructionId =  useRoute().params.constructionId
 

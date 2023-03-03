@@ -25,7 +25,7 @@
       </v-btn>
     </div>
 
-    <Transition name="slide-fade">
+    <Transition name="blur">
       <ExpenseForm v-if="showForm" @on-form-submit="createExpense" />
     </Transition>
 
@@ -97,17 +97,13 @@
 </script>
 
 <style>
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
+.blur-enter-active,
+.blur-leave-active {
+  transition: all 0.4s;
 }
-
-.slide-fade-leave-active {
-  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
+.blur-enter-from,
+.blur-leave-to {
   opacity: 0;
+  filter: blur(1rem);
 }
 </style>

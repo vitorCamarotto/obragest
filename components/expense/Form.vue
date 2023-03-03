@@ -22,20 +22,22 @@
         label="Descrição"
         clearable
       />
-      <v-text-field
+
+      <v-select
         v-model="type"
-        class="mb-2"
+        :items="expense_types"
         label="Tipo"
-        clearable
-      />
+      ></v-select>
+
       <v-text-field
         v-model="date"
         class="mb-2"
         label="Data"
         clearable
       />
-      <v-text-field
+      <v-select
         v-model="paymentMethod"
+        :items="payment_methods"
         class="mb-2"
         label="Método de Pagamento"
         clearable
@@ -55,6 +57,7 @@
 </template>
 
 <script setup>
+import { expense_types, payment_methods } from '~~/constants';
 
 const form = ref(null)
 const valid = ref(false)

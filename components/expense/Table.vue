@@ -11,6 +11,12 @@
           <th class="text-left">
             Descrição
           </th>
+          <th class="text-left">
+            Método de Pagamento
+          </th>
+          <th class="text-left">
+            Data
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +27,8 @@
           <td>R$ {{ expense.amount / 100 }}</td>
           <td>{{ expense.type }}</td>
           <td>{{ expense.description }}</td>
+          <td>{{ expense.description }}</td>
+          <td>{{ expense.date }}</td>
         </tr>
       </tbody>
     </v-table>

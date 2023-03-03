@@ -4,6 +4,8 @@
       <h2 class="mt-3">
         Adicionar custo
       </h2>
+      <Datepicker v-model="date"></Datepicker>
+
     </div>
     <v-form
       v-model="valid"
@@ -29,12 +31,6 @@
         label="Tipo"
       ></v-select>
 
-      <v-text-field
-        v-model="date"
-        class="mb-2"
-        label="Data"
-        clearable
-      />
       <v-select
         v-model="paymentMethod"
         :items="payment_methods"
@@ -57,7 +53,9 @@
 </template>
 
 <script setup>
-import { expense_types, payment_methods } from '~~/constants';
+import { expense_types, payment_methods } from '~~/constants'
+import Datepicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const form = ref(null)
 const valid = ref(false)

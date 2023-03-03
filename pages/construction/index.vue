@@ -1,6 +1,6 @@
 <template>
   <div class="mt-5">
-    <div class="prose">
+    <div class="prose flex justify-center">
       <h1 class="ml-3">
         Suas Obras
       </h1>
@@ -82,7 +82,6 @@
           name: response.name
         }
 
-        name.value = ''
         cardConstructions.value.push(newConstruction)
         showForm.value = false
       }
@@ -105,5 +104,9 @@
 .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
+}
+
+.prose {
+  max-width: 100%;
 }
 </style>

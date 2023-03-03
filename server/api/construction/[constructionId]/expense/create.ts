@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     try {
       const expenses = await prisma.expense.create({
         data: {
-          amount: body.amount,
+          amount: parseFloat(body.amount),
           description: body.description,
           type: body.type,
           date: body.date,
@@ -23,9 +23,10 @@ export default defineEventHandler(async (event) => {
       ))
 
     } catch (error) {
+      console.error(error)
       throw createError({
         statusCode: 500,
-        statusMessage: 'Falha ao adquirir obra pelo ID'
+        statusMessage: 'Falha ao criar Custo'
       })
     }
   }

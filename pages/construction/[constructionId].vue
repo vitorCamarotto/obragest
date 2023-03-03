@@ -50,7 +50,7 @@
 
   const showForm = ref(false)
   const construction = await getConstruction()
-  const expenses = new Set(await getExpenses())
+  const expenses = ref(new Set(await getExpenses()))
 
   // methods
   async function getConstruction () {
@@ -73,8 +73,26 @@
     }
   }
 
-  function createExpense (params) {
-    console.log('params', params.type)
+  async function createExpense (params) {
+    try {
+      const response = await $fetch(`/api/construction/${constructionId}/expense/create`, {
+        method: 'POST',
+          body: {
+            amount: params.amount,
+            description: params.description,
+            type: params.type,
+            date: params.date
+        }
+      })
+
+      if (response) {
+        expenses.value.add(response)
+      }
+
+
+    } catch (error) {
+      console.error(error)
+    }
   }
 </script>
 

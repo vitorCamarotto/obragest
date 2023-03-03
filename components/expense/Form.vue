@@ -61,7 +61,7 @@ const valid = ref(false)
 const description = ref('')
 const type = ref('')
 const amount = ref('')
-const date = ref('')
+const date = ref(null)
 const paymentMethod = ref('')
 
 const nameRules = [

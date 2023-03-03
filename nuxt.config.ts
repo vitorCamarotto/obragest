@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     },
   },
   build: {
-    transpile: ['vuetify']
+    transpile: ['vuetify', '@vuepic/vue-datepicker']
   },
   vite: {
     define: {

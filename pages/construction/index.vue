@@ -21,7 +21,11 @@
       </v-btn>
     </div>
 
-    <ConstructionForm v-if="showForm" @on-form-submit="addConstruction" />
+    <Transition name="slide-fade">
+      <ConstructionForm v-if="showForm" @on-form-submit="addConstruction" />
+    </Transition>
+
+
     <ConstructionCards :constructions="cardConstructions" />
   </div>
 </template>
@@ -80,9 +84,26 @@
 
         name.value = ''
         cardConstructions.value.push(newConstruction)
+        showForm.value = false
       }
     } catch (error) {
       console.error(error)
     }
   }
 </script>
+
+<style>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+</style>

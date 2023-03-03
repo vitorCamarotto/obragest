@@ -1,36 +1,42 @@
 <template>
-  <v-card class="mx-auto px-6 py-8" max-width="344">
-    <v-form v-model="valid">
-      <v-text-field
-        v-model="email"
-        class="mb-2"
-        clearable
-        label="Email"
-      />
-      <v-text-field
-        v-model="password"
-        type="password"
-        clearable
-        label="Password"
-        placeholder="Enter your password"
-      />
-      <v-btn
-        @click.prevent="signIn()"
-        block
-        class="bg-amber-lighten-2"
-        size="large"
-        type="submit"
-        variant="elevated"
-      >
-        Entrar
-      </v-btn>
-    </v-form>
-  </v-card>
+  <div>
 
-  <div class="flex justify-center mt-5">
-    <NuxtLink :to="'/auth/signup'" class="font-medium text-blue-600 hover:underline">
-      Crie sua conta
-    </NuxtLink>
+    <div class="prose flex justify-center mt-5">
+      <h1>Faça Login</h1>
+    </div>
+    <v-card class="mx-auto px-6 py-8" max-width="344">
+      <v-form v-model="valid">
+        <v-text-field
+          v-model="email"
+          class="mb-2"
+          clearable
+          label="Email"
+        />
+        <v-text-field
+          v-model="password"
+          type="password"
+          clearable
+          label="Password"
+          placeholder="Enter your password"
+        />
+        <v-btn
+          @click.prevent="signIn()"
+          block
+          class="bg-amber-lighten-2"
+          size="large"
+          type="submit"
+          variant="elevated"
+        >
+          Entrar
+        </v-btn>
+      </v-form>
+    </v-card>
+
+    <div class="prose flex justify-center mt-5">
+      <NuxtLink :to="'/auth/signup'" class="font-medium text-blue-600 hover:underline">
+        Crie sua conta
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -61,3 +67,10 @@
     })
   })
 </script>
+
+<style>
+
+.prose {
+  max-width: 100%;
+}
+</style>

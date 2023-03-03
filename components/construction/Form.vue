@@ -15,7 +15,7 @@
       <div class="flex justify-center">
         <v-btn
           @click.prevent="submit"
-          class="bg-white"
+          class="bg-amber-lighten-2"
           size="large"
           variant="elevated"
         >
@@ -40,10 +40,11 @@
   ])
 
   function validate() {
-      form.value.validate().then(isValid => {
-        valid.value = isValid
-      })
-    }
+    form.value.validate().then(response => {
+      let isValid = response.valid
+      valid.value = isValid
+    })
+  }
 
   function submit() {
     validate()

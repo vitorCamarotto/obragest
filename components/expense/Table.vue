@@ -27,7 +27,7 @@
           <td>R$ {{ expense.amount / 100 }}</td>
           <td>{{ expense.type }}</td>
           <td>{{ expense.description }}</td>
-          <td>{{ expense.description }}</td>
+          <td>{{ expense.payment_method }}</td>
           <td>{{ expense.date }}</td>
         </tr>
       </tbody>
@@ -36,11 +36,17 @@
 
 <script setup>
 
-defineProps({
+const props = defineProps({
   expenses: {
     type: Set,
     required: true
   }
 })
 
+props.expenses.forEach(element => {
+  if (element.date) {
+    let date = new Date(element.date).toLocaleDateString('pt-BR')
+    element.date = date
+  }
+});
 </script>

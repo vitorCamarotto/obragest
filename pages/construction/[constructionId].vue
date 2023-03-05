@@ -81,14 +81,15 @@
             amount: params.amount,
             description: params.description,
             type: params.type,
-            date: params.date
+            date: params.date,
+            payment_method: params.paymentMethod
         }
       })
 
       if (response) {
         expenses.value.add(response)
+        showForm.value = false
       }
-
 
     } catch (error) {
       console.error(error)

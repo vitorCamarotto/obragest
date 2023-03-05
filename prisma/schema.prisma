@@ -249,6 +249,7 @@ model Expense {
   description     String?
   amount          Float
   construction_id BigInt?
+  payment_method  String?       @default("")
   Construction    Construction? @relation(fields: [construction_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@schema("public")

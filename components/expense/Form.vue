@@ -31,12 +31,8 @@
         </template>
       </Datepicker>
 
-      <v-text-field
-        v-model="amount"
-        class="mb-2"
-        label="Valor"
-        clearable
-      />
+      <CurrencyInput v-model="amount"></CurrencyInput>
+
       <v-text-field
         v-model="description"
         class="mb-2"
@@ -73,6 +69,8 @@
 import { expense_types, payment_methods } from '~~/constants'
 import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+
+
 
 const datepicker = ref(null)
 const form = ref(null)

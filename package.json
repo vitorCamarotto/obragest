@@ -25,6 +25,7 @@
     "@supabase/supabase-js": "^2.7.1",
     "@vuepic/vue-datepicker": "^4.1.0",
     "sass": "^1.58.0",
+    "vue-currency-input": "^3.0.3",
     "vuetify": "^3.1.4"
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="my-5 mx-auto px-6 py-8 bg-amber-lighten-5" width="500">
+  <v-card class="my-5 mx-auto px-6 py-8 bg-amber-lighten-5">
     <div class="prose flex justify-center mb-3 mt-5">
       <h2 class="mt-3">
         Adicionar custo

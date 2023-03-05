@@ -30,7 +30,7 @@ export default {
   name: 'CurrencyInput',
   props: {
     modelValue: {
-      type: [String, Number],
+      type: [String, Number, null],
       required: true
     },
     options: {

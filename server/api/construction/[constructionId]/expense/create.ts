@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
           description: body.description,
           type: body.type,
           date: body.date,
+          payment_method: body.payment_method,
           construction_id: constructionId
         }
       })

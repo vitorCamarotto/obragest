@@ -31,6 +31,8 @@
 </template>
 
 <script setup>
+
+  const { $toast } = useNuxtApp()
   // initial setup
   definePageMeta({
     middleware: ['auth']
@@ -89,6 +91,8 @@
 
         cardConstructions.value.push(newConstruction)
         showForm.value = false
+        $toast.success('Yay!!!')
+
       }
     } catch (error) {
       console.error(error)

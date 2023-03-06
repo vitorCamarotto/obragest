@@ -54,15 +54,20 @@
 
   // methods
   async function fetchConstructions () {
-    const fetchedConstructions = await $fetch('/api/construction/getAll')
+    try {
+      const fetchedConstructions = await $fetch('/api/construction/getAll')
 
-    fetchedConstructions.forEach(element => {
-      const construction = {
-        id: element.id,
-        name: element.name
-      }
-      cardConstructions.value.push(construction)
-    })
+      fetchedConstructions.forEach(element => {
+        const construction = {
+          id: element.id,
+          name: element.name
+        }
+        cardConstructions.value.push(construction)
+      })
+
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async function addConstruction(name) {

@@ -35,6 +35,7 @@
 </template>
 
 <script setup>
+  const { $toast } = useNuxtApp()
   const loggedUser = useSupabaseUser()
 
   onMounted(() => {
@@ -89,10 +90,13 @@
       if (response) {
         expenses.value.add(response)
         showForm.value = false
+        $toast.success('Custo adicionado')
+        console.log(client)
       }
 
     } catch (error) {
       console.error(error)
+      $toast.error('Erro ao adicionar custo')
     }
   }
 </script>

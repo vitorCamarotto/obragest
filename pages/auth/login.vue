@@ -68,7 +68,7 @@
   })
 </script>
 
-<style>
+<style scoped>
 
 .prose {
   max-width: 100%;

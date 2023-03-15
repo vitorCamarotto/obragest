@@ -101,7 +101,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 .blur-enter-active,
 .blur-leave-active {
   transition: all 0.4s;

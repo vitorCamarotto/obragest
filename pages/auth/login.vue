@@ -57,7 +57,7 @@
 
   const signIn = async () => {
     isProcessing.value = true
-    console.log(isProcessing)
+
     try {
       await client.auth.signInWithPassword({
         email: email.value,

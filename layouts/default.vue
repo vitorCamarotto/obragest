@@ -52,7 +52,7 @@
 
 .navbar {
   background-color: #f3f7f9 !important;
-
+  width: 100%;
   &__icon {
     color: var(--color-primary);
   }

@@ -2,19 +2,13 @@
   <v-table class="table">
       <thead>
         <tr>
-          <th class="text-left">
-            Valor
-          </th>
-          <th class="text-left">
-            Tipo
-          </th>
-          <th class="text-left">
+          <th>
             Descrição
           </th>
-          <th class="text-left">
-            Método de Pagamento
+          <th>
+            Valor
           </th>
-          <th class="text-left">
+          <th>
             Data
           </th>
         </tr>
@@ -24,10 +18,8 @@
           v-for="expense in expenses"
           :key="expense"
         >
-          <td>R$ {{ expense.amount / 100 }}</td>
-          <td>{{ expense.type }}</td>
           <td>{{ expense.description }}</td>
-          <td>{{ expense.payment_method }}</td>
+          <td>R$ {{ expense.amount / 100 }}</td>
           <td>{{ expense.date }}</td>
         </tr>
       </tbody>
@@ -56,6 +48,29 @@ props.expenses.forEach(element => {
 .table {
   background-color: var(--color-light);
   margin-bottom: 24px;
+  width: clamp(340px, 90%, 600px);
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
 }
+
+.table th {
+  font-weight: bold !important;
+  text-align: left !important;
+  padding: 10px !important;
+  background-color: var(--color-secondary) !important;
+  color: #333 !important;
+  border-bottom: 2px solid #ddd !important;
+}
+
+.table td {
+  text-align: left !important;
+  padding: 10px !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
 
 </style>

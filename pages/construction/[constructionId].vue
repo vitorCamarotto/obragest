@@ -91,7 +91,6 @@
         expenses.value.add(response)
         showForm.value = false
         $toast.success('Custo adicionado')
-        console.log(client)
       }
 
     } catch (error) {

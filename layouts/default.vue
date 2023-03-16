@@ -3,16 +3,19 @@
     <v-app-bar
       app
       elevation="8"
-      class="bg-amber-lighten-2"
+      class="navbar text-white"
     >
-      <v-app-bar-nav-icon class="bg-white">
+      <v-app-bar-nav-icon class="navbar__ball">
+        <NuxtLink :to="'/'">
+
         <ClientOnly>
           <Icon
             name="material-symbols:other-houses-outline"
             size="40px"
-            class="text-amber-lighten-2 mb-1"
+            class="navbar__icon mb-1"
             />
         </ClientOnly>
+      </NuxtLink>
       </v-app-bar-nav-icon>
       <NuxtLink :to="'/'">
         <div class="prose">
@@ -22,7 +25,8 @@
       <v-spacer></v-spacer>
       <v-btn
         @click.prevent="signOut()"
-        class="bg-white">
+        class="logout-btn"
+      >
         Sair
       </v-btn>
     </v-app-bar>
@@ -43,3 +47,50 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+.text-amber-lighten-5 {
+  color: var(--color-ice) !important;
+}
+
+.navbar {
+  background-color: var(--color-ice) !important;
+  width: 100%;
+
+  &__icon {
+    color: var(--color-primary);
+  }
+
+  &__ball {
+    background-color: var(--color-ice);
+
+    &-loading {
+      background-color: rgb(255, 255, 60);
+    }
+
+    &-completed {
+      background-color: rgb(41, 246, 41);
+
+    }
+  }
+
+
+
+  animation: colorAnimation 2s infinite;
+}
+
+@keyframes colorAnimation {
+  from {
+    background-color: yellow;
+  }
+
+  to {
+    background-color: green;
+  }
+}
+
+.logout-btn {
+  color: black !important;
+  border: var(--btn-border);
+}
+</style>

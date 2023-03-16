@@ -1,5 +1,5 @@
 <template>
-  <v-card class="my-5 mx-auto px-6 py-8 bg-amber-lighten-5">
+  <v-card class="card my-5 mx-auto px-6 py-8">
     <div class="prose flex justify-center mb-3 mt-5">
       <h2 class="mt-3">
         Adicionar custo
@@ -22,9 +22,11 @@
         <template #action-select>
             <v-btn
              size="large"
-             class="text-amber-darken-4 mt-3 p-10"
+             class="datepicker-button mt-3 p-10"
              variant="outlined"
-             @click="selectDate"
+             @click="selectDate
+             
+             "
             >
              Selecionar
             </v-btn>
@@ -54,7 +56,7 @@
       <div class="flex justify-center">
         <v-btn
           @click.prevent="submit"
-          class="bg-amber-lighten-2"
+          class="submit-btn"
           size="large"
           variant="elevated"
         >
@@ -119,25 +121,39 @@ function selectDate () {
 
 </script>
 
-<style>
+<style scoped lang="scss">
+
+.card {
+  background-color: var(--color-secondary);
+}
+
+.datepicker-button {
+  color: black !important;
+}
+.submit-btn {
+  color: black !important;
+  background-color: var(--color-primary) !important;
+} 
+
+/* datepicker colors */
 .dp__theme_light {
    --dp-background-color: #ffffff;
    --dp-text-color: #212121;
    --dp-hover-color: #f3f3f3;
    --dp-hover-text-color: #212121;
    --dp-hover-icon-color: #959595;
-   --dp-primary-color: #FF8F00;
+   --dp-primary-color: var(--color-primary);
    --dp-primary-text-color: #f8f5f5;
    --dp-secondary-color: #c0c4cc;
    --dp-border-color: #ddd;
-   --dp-menu-border-color: #FFCA28;
-   --dp-border-color-hover: #FFCA28;
+   --dp-menu-border-color: var(--color-primary);
+   --dp-border-color-hover: var(--color-primary);
    --dp-disabled-color: #f6f6f6;
    --dp-scroll-bar-background: #f3f3f3;
-   --dp-scroll-bar-color: #FF8F00;
-   --dp-success-color: #FF8F00;
+   --dp-scroll-bar-color: var(--color-primary);
+   --dp-success-color: var(--color-primary);
    --dp-success-color-disabled: #a3d9b1;
-   --dp-icon-color: #FF8F00;
+   --dp-icon-color: black;
    --dp-danger-color: #ff6f60;
    --dp-highlight-color: rgba(25, 118, 210, 0.1);
 }

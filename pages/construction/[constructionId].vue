@@ -19,7 +19,7 @@
         <Icon
           name="material-symbols:add-circle-rounded"
           size="24px"
-          class="text-amber-lighten-2 mr-2"
+          class="plus-icon mr-2"
           />
         Novo Custo
       </v-btn>
@@ -110,5 +110,10 @@
 .blur-leave-to {
   opacity: 0;
   filter: blur(1rem);
+}
+
+
+.plus-icon {
+  color: var(--color-primary);
 }
 </style>

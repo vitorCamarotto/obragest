@@ -30,7 +30,7 @@
           class="button"
           size="large"
           type="submit"
-          variant="elevated"
+          variant="outlined"
         >
           Cadastrar
         </v-btn>
@@ -89,7 +89,9 @@
 
 <style scoped lang="scss">
 .button {
-  background-color: var(--color-primary) !important;
+  color: black !important;
+  background-color: white !important;
+  border: var(--btn-border)
 }
 
 .progress-circle {

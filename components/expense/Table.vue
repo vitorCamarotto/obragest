@@ -1,5 +1,5 @@
 <template>
-  <v-table class="bg-amber-lighten-5">
+  <v-table class="table">
       <thead>
         <tr>
           <th class="text-left">
@@ -50,3 +50,12 @@ props.expenses.forEach(element => {
   }
 });
 </script>
+
+
+<style scoped lang="scss">
+.table {
+  background-color: var(--color-light);
+  margin-bottom: 24px;
+}
+
+</style>

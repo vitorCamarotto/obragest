@@ -60,7 +60,6 @@
 
 .logout-btn {
   color: black !important;
-  border: 3px solid var(--color-primary);
-
+  border: var(--btn-border);
 }
 </style>

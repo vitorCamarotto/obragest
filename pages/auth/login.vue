@@ -47,6 +47,8 @@
 </template>
 
 <script setup>
+  const { $toast } = useNuxtApp()
+
   const email = ref('')
   const password = ref('')
   const valid = ref(false)
@@ -58,16 +60,16 @@
   const signIn = async () => {
     isProcessing.value = true
 
-    try {
-      await client.auth.signInWithPassword({
-        email: email.value,
-        password: password.value
-      })
-    } catch (error) {
-      console.error(error)
-    }
+    const { error } = await client.auth.signInWithPassword({
+      email: email.value,
+      password: password.value
+    })
 
-    isProcessing.value = false
+    if (error) {
+      isProcessing.value = false
+      console.error(error)
+      $toast.error('Erro ao fazer login')
+    }
   }
 
   onMounted(() => {

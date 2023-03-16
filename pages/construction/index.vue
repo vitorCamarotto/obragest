@@ -15,7 +15,7 @@
       <Icon
           name="material-symbols:add-circle-rounded"
           size="24px"
-          class="text-amber-lighten-2 mr-2"
+          class="add-button mr-2"
         />
         Nova Obra
       </v-btn>
@@ -114,5 +114,9 @@
 
 .prose {
   max-width: 100%;
+}
+
+.add-button {
+  color: var(--color-primary);
 }
 </style>

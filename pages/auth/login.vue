@@ -22,13 +22,19 @@
         <v-btn
           @click.prevent="signIn()"
           block
-          class="bg-amber-lighten-2"
+          v-if="!isProcessing"
+          class="button"
           size="large"
           type="submit"
-          variant="elevated"
+          variant="outlined"
         >
           Entrar
         </v-btn>
+        <v-progress-circular
+          indeterminate
+          v-if="isProcessing"
+          class="progress-circle"
+        />
       </v-form>
     </v-card>
 
@@ -44,11 +50,14 @@
   const email = ref('')
   const password = ref('')
   const valid = ref(false)
+  let isProcessing = ref(false)
 
   const client = useSupabaseClient()
   const user = useSupabaseUser()
 
   const signIn = async () => {
+    isProcessing.value = true
+    console.log(isProcessing)
     try {
       await client.auth.signInWithPassword({
         email: email.value,
@@ -57,6 +66,8 @@
     } catch (error) {
       console.error(error)
     }
+
+    isProcessing.value = false
   }
 
   onMounted(() => {
@@ -68,9 +79,20 @@
   })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .prose {
   max-width: 100%;
+}
+
+.button {
+  color: black !important;
+  background-color: white !important;
+  border: var(--btn-border)
+}
+
+.progress-circle {
+  color: var(--color-primary);
+  margin-left: 40%;
 }
 </style>

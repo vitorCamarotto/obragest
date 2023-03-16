@@ -3,14 +3,14 @@
     <v-app-bar
       app
       elevation="8"
-      class="bg-amber-lighten-2"
+      class="navbar text-white"
     >
       <v-app-bar-nav-icon class="bg-white">
         <ClientOnly>
           <Icon
             name="material-symbols:other-houses-outline"
             size="40px"
-            class="text-amber-lighten-2 mb-1"
+            class="navbar__icon mb-1"
             />
         </ClientOnly>
       </v-app-bar-nav-icon>
@@ -22,7 +22,8 @@
       <v-spacer></v-spacer>
       <v-btn
         @click.prevent="signOut()"
-        class="bg-white">
+        class="logout-btn"
+      >
         Sair
       </v-btn>
     </v-app-bar>
@@ -43,3 +44,23 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+.text-amber-lighten-5 {
+  color: #f3f7f9 !important;
+}
+
+.navbar {
+  background-color: #f3f7f9 !important;
+
+  &__icon {
+    color: var(--color-primary);
+  }
+}
+
+.logout-btn {
+  color: black !important;
+  border: 3px solid var(--color-primary);
+
+}
+</style>

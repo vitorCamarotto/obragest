@@ -15,7 +15,7 @@
       <div class="flex justify-center">
         <v-btn
           @click.prevent="submit"
-          class="bg-amber-lighten-2"
+          class="submit-btn"
           size="large"
           variant="elevated"
         >
@@ -54,3 +54,11 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+
+.submit-btn {
+  color: black !important;
+  background-color: var(--color-primary) !important;
+}
+</style>

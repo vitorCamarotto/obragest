@@ -18,20 +18,27 @@
         />
         <v-text-field
           v-model="password"
+          type="password"
           clearable
           label="Password"
           placeholder="Enter your password"
         />
         <v-btn
           @click.prevent="signUp()"
+          v-if="!isProcessing"
           block
-          class="bg-amber-lighten-2"
+          class="button"
           size="large"
           type="submit"
           variant="elevated"
         >
           Cadastrar
         </v-btn>
+        <v-progress-circular
+          indeterminate
+          v-if="isProcessing"
+          class="progress-circle"
+        />
       </v-form>
     </v-card>
 
@@ -50,27 +57,43 @@
   </div>
 </template>
 
-<script>
-  export default {
-    data () {
-      return {
-        valid: false,
-        email: '',
-        password: ''
-      }
-    },
-    methods: {
-      async signUp () {
+<script setup>
+  const { $toast } = useNuxtApp()
 
-        try {
-          await this.client.auth.signUp({
-            email: this.email,
-            password: this.password
-          })
-        } catch (error) {
-          console.error(error)
-        }
-      }
+  const email = ref('')
+  const password = ref('')
+  const valid = ref(false)
+  let isProcessing = ref(false)
+
+  const client = useSupabaseClient()
+
+  async function signUp () {
+    isProcessing.value = true
+
+    try {
+      await client.auth.signUp({
+        email: this.email,
+        password: this.password
+      })
+
+      $toast.success('Sucesso! Verifique seu email')
+    } catch (error) {
+      console.error(error)
     }
+
+    isProcessing.value = false
   }
+
+
 </script>
+
+<style scoped lang="scss">
+.button {
+  background-color: var(--color-primary) !important;
+}
+
+.progress-circle {
+  color: var(--color-primary);
+  margin-left: 40%;
+}
+</style>

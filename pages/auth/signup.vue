@@ -49,7 +49,7 @@
         </p>
       </div>
     </div>
-    <div class="flex justify-center mt-4">
+    <div class="prose flex justify-center mt-4">
       <NuxtLink :to="'/auth/login'" class="font-medium text-blue-600 hover:underline">
         Fazer Login
       </NuxtLink>

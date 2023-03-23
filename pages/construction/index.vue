@@ -43,15 +43,7 @@
     middleware: ['auth']
   })
 
-  const loggedUser = useSupabaseUser()
-
   onMounted(() => {
-    watchEffect(() => {
-      if (!loggedUser.value) {
-        return navigateTo('/auth/login')
-      }
-    })
-
     fetchConstructions()
   })
 

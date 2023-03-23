@@ -46,6 +46,19 @@
       console.error(error)
     }
   }
+
+  const loggedUser = useSupabaseUser()
+
+  onMounted(() => {
+    console.log(useRoute().path === '/auth/signup')
+    if (!useRoute().path === '/auth/signup') {
+      watchEffect(() => {
+        if(!loggedUser.value) {
+          return navigateTo('/auth/login')
+        }
+      })
+    }
+  })
 </script>
 
 <style scoped lang="scss">
@@ -74,9 +87,6 @@
 
     }
   }
-
-
-
 }
 
 @keyframes colorAnimation {

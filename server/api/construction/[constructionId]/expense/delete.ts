@@ -3,8 +3,12 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default defineEventHandler(async (event) => {
-  if (event.context.params){
-    const expenseId = parseInt(event.context.params.expenseId)
+  const body = await readBody(event)
+
+  if (body.expenseId) {
+    const expenseId = BigInt(body.expenseId)
+
+    console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', expenseId)
 
     try {
       const expense = await prisma.expense.delete({

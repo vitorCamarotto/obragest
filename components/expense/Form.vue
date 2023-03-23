@@ -140,7 +140,7 @@ function closeForm () {
 .submit-btn {
   color: black !important;
   background-color: var(--color-primary) !important;
-} 
+}
 
 /* datepicker colors */
 .dp__theme_light {

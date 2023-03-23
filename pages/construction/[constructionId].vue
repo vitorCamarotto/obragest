@@ -36,29 +36,23 @@
         />
     </Transition>
 
-    <ExpenseTable :expenses="expenses" class="mt-4"/>
+    <ExpenseTable
+      :expenses="expenses"
+      @onDeleteExpense="deleteExpense"
+      class="mt-4"/>
 
   </div>
 </template>
 
 <script setup>
   const { $toast } = useNuxtApp()
-  const loggedUser = useSupabaseUser()
-
-  onMounted(() => {
-    watchEffect(() => {
-      if(!loggedUser.value) {
-        return navigateTo('/auth/login')
-      }
-    })
-  })
 
   // consts
   const constructionId =  useRoute().params.constructionId
 
   const showForm = ref(false)
   const construction = await getConstruction()
-  const expenses = ref(new Set(await getExpenses()))
+  let expenses = ref(new Set(await getExpenses()))
 
   // methods
   async function getConstruction () {
@@ -103,6 +97,25 @@
     } catch (error) {
       console.error(error)
       $toast.error('Erro ao adicionar custo')
+    }
+  }
+
+  async function deleteExpense (expenseId) {
+    try {
+      const response = await $fetch(`/api/construction/${constructionId}/expense/delete`, {
+        method: 'DELETE',
+        body: {
+          expenseId: expenseId
+        }
+      })
+
+      if (response) {
+        $toast.success('Custo removido')
+      }
+    } catch (error) {
+      console.error(error)
+      $toast.error('Erro ao remover custo')
+
     }
   }
 </script>

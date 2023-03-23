@@ -15,7 +15,7 @@
         v-for="expense in expenses"
         :key="expense"
       >
-      <td>R$ {{ expense.amount / 100 }}</td>
+      <td>{{ expense.amount }}</td>
       <td>
         <v-expansion-panels variant="popout">
           <v-expansion-panel>
@@ -33,9 +33,12 @@
                   </div>
                 </div>
                 <div class="expand-right-side">
-                  <Icon name="material-symbols:delete" class="trash-icon"></Icon>
+                  <Icon
+                    name="material-symbols:delete"
+                    class="trash-icon"
+                    @click="deleteExpense(expense.id)"
+                  />
                 </div>
-
               </div>
             </v-expansion-panel-text>
           </v-expansion-panel>
@@ -47,20 +50,43 @@
 </template>
 
 <script setup>
+  const props = defineProps({
+    expenses: {
+      type: Set,
+      required: true
+    }
+  })
 
-const props = defineProps({
-  expenses: {
-    type: Set,
-    required: true
-  }
-})
+  const emit = defineEmits([
+    'onDeleteExpense'
+  ])
 
-props.expenses.forEach(element => {
-  if (element.date) {
-    let date = new Date(element.date).toLocaleDateString('pt-BR')
-    element.date = date
+  function deleteExpense (expenseId) {
+    console.log(expenseId)
+    emit('onDeleteExpense', expenseId)
   }
-});
+
+  onBeforeMount(() => {
+    formatExpenses()
+  })
+
+  function formatExpenses () {
+    props.expenses.forEach(element => {
+      if (element.date) {
+        let date = new Date(element.date).toLocaleDateString('pt-BR')
+        element.date = date
+      }
+
+      const formatter = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2
+      });
+
+      element.amount = formatter.format(element.amount/100)
+    });
+  }
+
 </script>
 
 

@@ -1,5 +1,11 @@
 <template>
   <v-card class="my-5 mx-auto px-6 py-8" max-width="344">
+    <div class="close-btn">
+      <Icon
+        name="material-symbols:close-rounded"
+        @click="closeForm"
+      ></Icon>
+    </div>
     <v-form
       v-model="valid"
       ref="form"
@@ -36,7 +42,7 @@
   ]
 
   const emit = defineEmits([
-    'onFormSubmit'
+    'onFormSubmit', 'closeForm'
   ])
 
   function validate() {
@@ -53,6 +59,10 @@
       emit('onFormSubmit', name)
     }
   }
+
+  function closeForm () {
+    emit('closeForm')
+  }
 </script>
 
 <style scoped lang="scss">
@@ -60,5 +70,13 @@
 .submit-btn {
   color: black !important;
   background-color: var(--color-primary) !important;
+}
+
+.close-btn {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 32px;
+  margin-bottom: 24px;
+  cursor: pointer;
 }
 </style>

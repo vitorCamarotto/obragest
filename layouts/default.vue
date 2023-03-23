@@ -62,6 +62,7 @@
   }
 
   &__ball {
+    animation: colorAnimation 3s infinite;
     background-color: var(--color-ice);
 
     &-loading {
@@ -76,16 +77,23 @@
 
 
 
-  animation: colorAnimation 2s infinite;
 }
 
 @keyframes colorAnimation {
-  from {
+  0% {
+    background-color: var(--color-ice);
+  }
+
+  20% {
     background-color: yellow;
   }
 
-  to {
+  50% {
     background-color: green;
+  }
+
+  100% {
+    background-color: var(--color-ice);
   }
 }
 

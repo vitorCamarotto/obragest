@@ -6,23 +6,28 @@
       </h1>
     </div>
 
-    <div class="flex justify-center mt-4">
-      <v-btn
-        class="bg-white"
-        v-if="!showForm"
-        @click="showForm = true"
-      >
-      <Icon
-          name="material-symbols:add-circle-rounded"
-          size="24px"
-          class="plus-icon mr-2"
-        />
-        Nova Obra
-      </v-btn>
-    </div>
+    <Transition name="blur">
+      <div class="flex justify-center mt-4" v-if="!showForm">
+        <v-btn
+          class="bg-white"
+          @click="showForm = true"
+        >
+        <Icon
+            name="material-symbols:add-circle-rounded"
+            size="24px"
+            class="plus-icon mr-2"
+          />
+          Nova Obra
+        </v-btn>
+      </div>
+    </Transition>
+
 
     <Transition name="blur">
-      <ConstructionForm v-if="showForm" @on-form-submit="addConstruction" />
+      <ConstructionForm
+        v-if="showForm"
+        @on-form-submit="addConstruction"
+        @closeForm="showForm = false" />
     </Transition>
 
 

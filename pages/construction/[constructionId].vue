@@ -10,23 +10,30 @@
       </h3>
     </div>
 
-    <div class="mt-4">
-      <v-btn
+    <Transition name="blur">
+      <div class="mt-4"
         v-if="!showForm"
-        @click="showForm = true"
-        class="bg-white"
       >
-        <Icon
-          name="material-symbols:add-circle-rounded"
-          size="24px"
-          class="plus-icon mr-2"
-          />
-        Novo Custo
-      </v-btn>
-    </div>
+        <v-btn
+          @click="showForm = true"
+          class="bg-white"
+        >
+          <Icon
+            name="material-symbols:add-circle-rounded"
+            size="24px"
+            class="plus-icon mr-2"
+            />
+          Novo Custo
+        </v-btn>
+      </div>
+    </Transition>
 
     <Transition name="blur">
-      <ExpenseForm v-if="showForm" @on-form-submit="createExpense" />
+      <ExpenseForm
+        v-if="showForm"
+        @on-form-submit="createExpense"
+        @closeForm="showForm = false"
+        />
     </Transition>
 
     <ExpenseTable :expenses="expenses" class="mt-4"/>

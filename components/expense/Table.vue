@@ -1,29 +1,49 @@
 <template>
   <v-table class="table">
-      <thead>
-        <tr>
-          <th>
-            Descrição
-          </th>
-          <th>
-            Valor
-          </th>
-          <th>
-            Data
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="expense in expenses"
-          :key="expense"
-        >
-          <td>{{ expense.description }}</td>
-          <td>R$ {{ expense.amount / 100 }}</td>
-          <td>{{ expense.date }}</td>
-        </tr>
-      </tbody>
-    </v-table>
+    <thead>
+      <tr>
+        <th>
+          Valor
+        </th>
+        <th>
+          Detalhes
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="expense in expenses"
+        :key="expense"
+      >
+      <td>R$ {{ expense.amount / 100 }}</td>
+      <td>
+        <v-expansion-panels variant="popout">
+          <v-expansion-panel>
+            <v-expansion-panel-title>
+              {{ expense.type }}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <div class="expand-wrapper">
+                <div class="expand-left-side">
+                  <div>
+                    {{ expense.date }}
+                  </div>
+                  <div>
+                    {{ expense.description }}
+                  </div>
+                </div>
+                <div class="expand-right-side">
+                  <Icon name="material-symbols:delete" class="trash-icon"></Icon>
+                </div>
+
+              </div>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </td>
+      </tr>
+    </tbody>
+  </v-table>
 </template>
 
 <script setup>
@@ -69,7 +89,38 @@ props.expenses.forEach(element => {
 }
 
 .table tbody tr:hover {
-  background-color: #f5f5f5;
+  background-color: var(--color-ice);
 }
 
+.expand-wrapper {
+  display: flex;
+}
+.expand-left-side {
+  width: 70%;
+}
+.expand-right-side {
+  display: flex;
+  justify-content: center;
+  width: 30%;
+}
+
+.trash-icon {
+  margin-top: 12px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+</style>
+
+<style>
+.v-expansion-panel-text__wrapper {
+  padding: 4px 12px 8px;
+  flex: 1 1 auto;
+  max-width: 100%;
+  min-height: 240px;
+}
+
+.v-expansion-panel--active > .v-expansion-panel-title {
+  min-height: 24px;
+}
 </style>

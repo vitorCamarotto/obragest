@@ -36,16 +36,28 @@
         />
     </Transition>
 
-    <ExpenseTable
-      :expenses="expenses"
-      @onDeleteExpense="deleteExpense"
-      class="mt-4"/>
-
+    <div class="expense-table">
+      <Transition name="blur" mode="out-in">
+        <v-progress-circular
+          v-if="isProcessing"
+          :size="100"
+          indeterminate
+          class="progress-circle"
+        />
+        <ExpenseTable
+          v-else
+          :expenses="expenses"
+          @onDeleteExpense="deleteExpense"
+          class="mt-4"
+        />
+      </Transition>
+    </div>
   </div>
 </template>
 
 <script setup>
   const { $toast } = useNuxtApp()
+  let isProcessing = ref(true)
 
   // consts
   const constructionId =  useRoute().params.constructionId
@@ -66,13 +78,20 @@
   }
 
   async function getExpenses () {
+    isProcessing.value = true
+
     try {
       const fetchedExpenses = await $fetch(`/api/construction/${constructionId}/expense/getAll`)
+
+      isProcessing.value = false
 
       return fetchedExpenses
     } catch (error) {
       console.error(error)
+
+      isProcessing.value = false
     }
+
   }
 
   async function createExpense (params) {
@@ -119,7 +138,7 @@
   }
 </script>
 
-<style>
+<style scoped lang="scss">
 .blur-enter-active,
 .blur-leave-active {
   transition: all 0.4s;
@@ -130,8 +149,17 @@
   filter: blur(1rem);
 }
 
-
 .plus-icon {
   color: var(--color-primary);
+}
+
+.expense-table {
+  display: flex;
+  justify-content: center;
+}
+
+.progress-circle {
+  color: var(--color-primary);
+  margin-top: 100px;
 }
 </style>

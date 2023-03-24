@@ -30,8 +30,21 @@
         @closeForm="showForm = false" />
     </Transition>
 
-
-    <ConstructionCards :constructions="cardConstructions" />
+    <div class="construction-cards">
+      <Transition name="blur" mode="out-in">
+        <v-progress-circular
+          :size="100"
+          indeterminate
+          v-if="isProcessing"
+          class="progress-circle"
+        />
+        <ConstructionCards
+          v-else
+          :constructions="cardConstructions"
+          @on-card-click="onCardClick"
+        />
+      </Transition>
+    </div>
   </div>
 </template>
 
@@ -50,9 +63,15 @@
   // refs
   const showForm = ref(false)
   const cardConstructions = ref(new Array())
+  let isProcessing = ref(true)
 
   // methods
+  function onCardClick () {
+    isProcessing.value = true
+  }
+
   async function fetchConstructions () {
+    isProcessing.value = true
     try {
       const fetchedConstructions = await $fetch('/api/construction/getAll')
 
@@ -67,6 +86,7 @@
     } catch (error) {
       console.error(error)
     }
+    isProcessing.value = false
   }
 
   async function addConstruction(name) {
@@ -98,7 +118,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .blur-enter-active,
 .blur-leave-active {
   transition: all 0.4s;
@@ -115,5 +135,15 @@
 
 .plus-icon {
   color: var(--color-primary);
+}
+
+.construction-cards {
+  display: flex;
+  justify-content: center;
+}
+
+.progress-circle {
+  color: var(--color-primary);
+  margin-top: 100px;
 }
 </style>

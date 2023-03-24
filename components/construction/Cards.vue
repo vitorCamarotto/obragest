@@ -10,7 +10,7 @@
         class="my-4"
       >
         <div class="construction-card">
-          <NuxtLink :to="`/construction/${item.id}`">
+          <NuxtLink :to="`/construction/${item.id}`" @click="onCardClick">
             <v-card
               class="elevation-10 rounded-lg bg-white"
               height="100px"
@@ -38,12 +38,20 @@
 </template>
 
 <script setup>
-defineProps({
-  constructions: {
-    type: Array,
-    required: true
+  defineProps({
+    constructions: {
+      type: Array,
+      required: true
+    }
+  })
+
+  const emit = defineEmits([
+    'onCardClick'
+  ])
+
+  function onCardClick () {
+    emit('onCardClick')
   }
-})
 </script>
 
 <style scoped>

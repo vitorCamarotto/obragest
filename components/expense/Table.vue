@@ -62,7 +62,6 @@
   ])
 
   function deleteExpense (expenseId) {
-    console.log(expenseId)
     emit('onDeleteExpense', expenseId)
   }
 

@@ -8,8 +8,6 @@ export default defineEventHandler(async (event) => {
   if (body.expenseId) {
     const expenseId = BigInt(body.expenseId)
 
-    console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', expenseId)
-
     try {
       const expense = await prisma.expense.delete({
         where: {

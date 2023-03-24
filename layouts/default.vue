@@ -50,7 +50,6 @@
   const loggedUser = useSupabaseUser()
 
   onMounted(() => {
-    console.log(useRoute().path === '/auth/signup')
     if (!useRoute().path === '/auth/signup') {
       watchEffect(() => {
         if(!loggedUser.value) {

@@ -115,7 +115,6 @@
     } catch (error) {
       console.error(error)
       $toast.error('Erro ao remover custo')
-
     }
   }
 </script>

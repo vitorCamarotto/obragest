@@ -88,6 +88,10 @@
 </script>
 
 <style scoped lang="scss">
+
+.prose {
+  max-width: 100%;
+}
 .button {
   color: black !important;
   background-color: white !important;

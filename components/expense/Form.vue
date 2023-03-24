@@ -1,5 +1,11 @@
 <template>
   <v-card class="card my-5 mx-auto px-6 py-8">
+    <div class="close-btn">
+      <Icon
+        name="material-symbols:close-rounded"
+        @click="closeForm"
+      ></Icon>
+    </div>
     <div class="prose flex justify-center mb-3 mt-5">
       <h2 class="mt-3">
         Adicionar custo
@@ -24,9 +30,7 @@
              size="large"
              class="datepicker-button mt-3 p-10"
              variant="outlined"
-             @click="selectDate
-             
-             "
+             @click="selectDate"
             >
              Selecionar
             </v-btn>
@@ -89,7 +93,7 @@ const nameRules = [
 ]
 
 const emit = defineEmits([
-  'onFormSubmit'
+  'onFormSubmit', 'closeForm'
 ])
 
 function validate () {
@@ -119,6 +123,9 @@ function selectDate () {
   datepicker.value.selectDate()
 }
 
+function closeForm () {
+  emit('closeForm')
+}
 </script>
 
 <style scoped lang="scss">
@@ -133,7 +140,7 @@ function selectDate () {
 .submit-btn {
   color: black !important;
   background-color: var(--color-primary) !important;
-} 
+}
 
 /* datepicker colors */
 .dp__theme_light {
@@ -160,5 +167,12 @@ function selectDate () {
 
 .dp__action_buttons {
   width: 100%;
+}
+
+.close-btn {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 32px;
+  cursor: pointer;
 }
 </style>

@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' }
   },
   modules: ['@nuxtjs/supabase', 'nuxt-icon'],
-  css: ['~/assets/css/main.css', 'vuetify/lib/styles/main.sass', '~/assets/scss/main.scss'],
+  css: ['~/assets/css/main.css', 'vuetify/lib/styles/main.sass', '~/assets/scss/main.scss', '@mdi/font/css/materialdesignicons.min.css'],
   postcss: {
     plugins: {
       tailwindcss: {},

@@ -10,48 +10,49 @@
       </h3>
     </div>
 
-    <div class="mt-4">
-      <v-btn
-        v-if="!showForm"
-        @click="showForm = true"
-        class="bg-white"
-      >
-        <Icon
-          name="material-symbols:add-circle-rounded"
-          size="24px"
-          class="plus-icon mr-2"
-          />
-        Novo Custo
-      </v-btn>
-    </div>
-
     <Transition name="blur">
-      <ExpenseForm v-if="showForm" @on-form-submit="createExpense" />
+      <div class="mt-4"
+        v-if="!showForm"
+      >
+        <v-btn
+          @click="showForm = true"
+          class="bg-white"
+        >
+          <Icon
+            name="material-symbols:add-circle-rounded"
+            size="24px"
+            class="plus-icon mr-2"
+            />
+          Novo Custo
+        </v-btn>
+      </div>
     </Transition>
 
-    <ExpenseTable :expenses="expenses" class="mt-4"/>
+    <Transition name="blur">
+      <ExpenseForm
+        v-if="showForm"
+        @on-form-submit="createExpense"
+        @closeForm="showForm = false"
+        />
+    </Transition>
+
+    <ExpenseTable
+      :expenses="expenses"
+      @onDeleteExpense="deleteExpense"
+      class="mt-4"/>
 
   </div>
 </template>
 
 <script setup>
   const { $toast } = useNuxtApp()
-  const loggedUser = useSupabaseUser()
-
-  onMounted(() => {
-    watchEffect(() => {
-      if(!loggedUser.value) {
-        return navigateTo('/auth/login')
-      }
-    })
-  })
 
   // consts
   const constructionId =  useRoute().params.constructionId
 
   const showForm = ref(false)
   const construction = await getConstruction()
-  const expenses = ref(new Set(await getExpenses()))
+  let expenses = ref(new Set(await getExpenses()))
 
   // methods
   async function getConstruction () {
@@ -96,6 +97,24 @@
     } catch (error) {
       console.error(error)
       $toast.error('Erro ao adicionar custo')
+    }
+  }
+
+  async function deleteExpense (expenseId) {
+    try {
+      const response = await $fetch(`/api/construction/${constructionId}/expense/delete`, {
+        method: 'DELETE',
+        body: {
+          expenseId: expenseId
+        }
+      })
+
+      if (response) {
+        $toast.success('Custo removido')
+      }
+    } catch (error) {
+      console.error(error)
+      $toast.error('Erro ao remover custo')
     }
   }
 </script>

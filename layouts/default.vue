@@ -46,6 +46,18 @@
       console.error(error)
     }
   }
+
+  const loggedUser = useSupabaseUser()
+
+  onMounted(() => {
+    if (!useRoute().path === '/auth/signup') {
+      watchEffect(() => {
+        if(!loggedUser.value) {
+          return navigateTo('/auth/login')
+        }
+      })
+    }
+  })
 </script>
 
 <style scoped lang="scss">
@@ -62,6 +74,7 @@
   }
 
   &__ball {
+    animation: colorAnimation 3s infinite;
     background-color: var(--color-ice);
 
     &-loading {
@@ -73,19 +86,23 @@
 
     }
   }
-
-
-
-  animation: colorAnimation 2s infinite;
 }
 
 @keyframes colorAnimation {
-  from {
+  0% {
+    background-color: var(--color-ice);
+  }
+
+  20% {
     background-color: yellow;
   }
 
-  to {
+  50% {
     background-color: green;
+  }
+
+  100% {
+    background-color: var(--color-ice);
   }
 }
 

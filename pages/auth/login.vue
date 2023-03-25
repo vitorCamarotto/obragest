@@ -1,10 +1,9 @@
 <template>
-  <div>
-
-    <div class="prose flex justify-center mt-5">
+  <div class="wrapper">
+    <div class="prose flex justify-center mt-5 mb-5">
       <h1>Faça Login</h1>
     </div>
-    <v-card class="mx-auto px-6 py-8" max-width="344">
+    <v-card class="mx-auto px-6 py-8 card" max-width="344">
       <v-form v-model="valid">
         <v-text-field
           v-model="email"
@@ -47,6 +46,10 @@
 </template>
 
 <script setup>
+  definePageMeta({
+    layout: false
+  })
+
   const { $toast } = useNuxtApp()
 
   const email = ref('')
@@ -87,6 +90,13 @@
   max-width: 100%;
 }
 
+.wrapper {
+  margin-top: 200px;
+}
+
+.card {
+  background-color: var(--color-light);
+}
 .button {
   color: black !important;
   background-color: white !important;

@@ -134,7 +134,6 @@
   font-size: 24px;
   cursor: pointer;
 }
-
 </style>
 
 <style>

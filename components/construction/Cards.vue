@@ -9,7 +9,7 @@
         lg="4"
         class="my-4"
       >
-        <div class="construction-card">
+        <div class="construction-card" @contextmenu.prevent="rightClickMenu">
           <NuxtLink :to="`/construction/${item.id}`" @click="onCardClick">
             <v-card
               class="elevation-10 rounded-lg bg-white"
@@ -45,6 +45,9 @@
     }
   })
 
+  function rightClickMenu () {
+    alert('oiiii')
+  }
   const emit = defineEmits([
     'onCardClick'
   ])

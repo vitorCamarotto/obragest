@@ -36,22 +36,11 @@
         />
     </Transition>
 
-    <div class="expense-table">
-      <Transition name="blur" mode="out-in">
-        <v-progress-circular
-          v-if="isProcessing"
-          :size="100"
-          indeterminate
-          class="progress-circle"
-        />
-        <ExpenseTable
-          v-else
-          :expenses="expenses"
-          @onDeleteExpense="deleteExpense"
-          class="mt-4"
-        />
-      </Transition>
-    </div>
+    <ExpenseTable
+      :expenses="expenses"
+      @onDeleteExpense="deleteExpense"
+      class="mt-4"
+    />
   </div>
 </template>
 
@@ -153,10 +142,6 @@
   color: var(--color-primary);
 }
 
-.expense-table {
-  display: flex;
-  justify-content: center;
-}
 
 .progress-circle {
   color: var(--color-primary);

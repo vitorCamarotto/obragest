@@ -61,9 +61,6 @@
 </script>
 
 <style scoped lang="scss">
-.text-amber-lighten-5 {
-  color: var(--color-ice) !important;
-}
 
 .navbar {
   background-color: var(--color-ice) !important;
@@ -71,38 +68,6 @@
 
   &__icon {
     color: var(--color-primary);
-  }
-
-  &__ball {
-    animation: colorAnimation 3s infinite;
-    background-color: var(--color-ice);
-
-    &-loading {
-      background-color: rgb(255, 255, 60);
-    }
-
-    &-completed {
-      background-color: rgb(41, 246, 41);
-
-    }
-  }
-}
-
-@keyframes colorAnimation {
-  0% {
-    background-color: var(--color-ice);
-  }
-
-  20% {
-    background-color: yellow;
-  }
-
-  50% {
-    background-color: green;
-  }
-
-  100% {
-    background-color: var(--color-ice);
   }
 }
 

@@ -16,27 +16,6 @@
       ref="form"
       validate-on="input"
     >
-      <Datepicker
-        ref="datepicker"
-        class="mb-5"
-        v-model="date"
-        :format="'dd/MM/yyyy'"
-        :teleport="true"
-        show-now-button
-        now-button-label="Hoje"
-        :enable-time-picker="false"
-      >
-        <template #action-select>
-            <v-btn
-             size="large"
-             class="datepicker-button mt-3 p-10"
-             variant="outlined"
-             @click="selectDate"
-            >
-             Selecionar
-            </v-btn>
-        </template>
-      </Datepicker>
 
       <CurrencyInput v-model="amount"></CurrencyInput>
 
@@ -58,6 +37,28 @@
         label="Método de Pagamento"
         clearable
       />
+
+      <Datepicker
+        ref="datepicker"
+        class="mb-5"
+        v-model="date"
+        :format="'dd/MM/yyyy'"
+        :teleport="true"
+        show-now-button
+        now-button-label="Hoje"
+        :enable-time-picker="false"
+      >
+        <template #action-select>
+            <v-btn
+             size="large"
+             class="datepicker-button mt-3 p-10"
+             variant="outlined"
+             @click="selectDate"
+            >
+             Selecionar
+            </v-btn>
+        </template>
+      </Datepicker>
       <div class="flex justify-center">
         <v-btn
           @click.prevent="submit"

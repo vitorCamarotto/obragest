@@ -1,3 +1,3 @@
 export const expense_types = [
-  'Cimento', 'Tinta', 'Elétrica', 'Tubos'
+  'Estrutural', 'Acabamento', 'Hidrossanitário', 'Elétrico'
 ]

@@ -12,10 +12,10 @@
     </thead>
     <tbody>
       <tr
-        v-for="expense in expenses"
-        :key="expense"
+        v-for="expense in formattedExpenses"
+        :key="expense.id"
       >
-      <td>{{ expense.amount }}</td>
+      <td>{{ expense.formattedAmount }}</td>
       <td>
         <v-expansion-panels variant="popout">
           <v-expansion-panel>
@@ -26,7 +26,7 @@
               <div class="expand-wrapper">
                 <div class="expand-left-side">
                   <div>
-                    {{ expense.date }}
+                    {{ expense.formattedDate }}
                   </div>
                   <div>
                     {{ expense.description }}
@@ -52,7 +52,7 @@
 <script setup>
   const props = defineProps({
     expenses: {
-      type: Set,
+      type: Array,
       required: true
     }
   })
@@ -62,19 +62,15 @@
   ])
 
   function deleteExpense (expenseId) {
+    alert('Tem certeza que deseja remover essa despesa?')
     emit('onDeleteExpense', expenseId)
   }
 
-  onBeforeMount(() => {
-    formatExpenses()
-  })
-
-  function formatExpenses () {
-    props.expenses.forEach(element => {
-      if (element.date) {
-        let date = new Date(element.date).toLocaleDateString('pt-BR')
-        element.date = date
-      }
+  const formattedExpenses = computed(() => {
+    return props.expenses.map(expense => {
+      const formattedDate = expense.date
+        ? new Date(expense.date).toLocaleDateString('pt-BR')
+        : "";
 
       const formatter = new Intl.NumberFormat('pt-BR', {
         style: 'currency',
@@ -82,9 +78,15 @@
         minimumFractionDigits: 2
       });
 
-      element.amount = formatter.format(element.amount/100)
+      const formattedAmount = formatter.format(expense.amount / 100);
+
+      return {
+        ...expense,
+        formattedAmount,
+        formattedDate
+      };
     });
-  }
+  });
 
 </script>
 

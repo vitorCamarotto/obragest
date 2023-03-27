@@ -39,7 +39,7 @@
 <script setup>
   const client = useSupabaseClient()
 
-  async function signOut () {
+  const signOut = async () => {
     try {
       await client.auth.signOut()
     } catch (error) {
@@ -50,7 +50,7 @@
   const loggedUser = useSupabaseUser()
 
   onMounted(() => {
-    if (useRoute().path !== '/auth/signup') {
+    if (!useRoute().path === '/auth/signup') {
       watchEffect(() => {
         if(!loggedUser.value) {
           return navigateTo('/auth/login')

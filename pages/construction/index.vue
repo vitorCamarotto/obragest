@@ -1,7 +1,7 @@
 <template>
   <div class="mt-5">
     <div class="prose flex justify-center">
-      <h1 class="ml-3">
+      <h1 class="ml-3" @click="emitTest">
         Suas Obras
       </h1>
     </div>
@@ -51,6 +51,14 @@
 <script setup>
   const { $toast } = useNuxtApp()
 
+  const emit = defineEmits([
+    'emitTest'
+  ])
+
+  function emitTest () {
+    console.log('BBBBBBBBBBBBBBBBBBBBB')
+    emit('emitTest')
+  }
   // initial setup
   definePageMeta({
     middleware: ['auth']

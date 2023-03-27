@@ -1,12 +1,20 @@
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage @emit-test="emitTest" />
     </NuxtLayout>
   </div>
 </template>
 
 <script setup>
+  const emit = defineEmits([
+    'emitTest'
+  ])
+
+  function emitTest () {
+    console.log('CCCCCCCCCCCCCCCCCCCCC')
+    emit('emitTest')
+  }
 </script>
 
 <style>

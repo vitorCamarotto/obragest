@@ -91,7 +91,7 @@
 }
 
 .wrapper {
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
 .card {

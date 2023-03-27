@@ -98,7 +98,7 @@
 }
 
 .wrapper {
-  margin-top: 200px;
+  margin-top: 100px;
 }
 .button {
   color: black !important;

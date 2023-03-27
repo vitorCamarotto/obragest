@@ -53,7 +53,7 @@
 
   const showForm = ref(false)
   const construction = await getConstruction()
-  let expenses = ref(new Set(await getExpenses()))
+  let expenses = ref(await getExpenses())
 
   // methods
   async function getConstruction () {
@@ -97,7 +97,7 @@
       })
 
       if (response) {
-        expenses.value.add(response)
+        expenses.value.push(response)
         showForm.value = false
         $toast.success('Custo adicionado')
       }
@@ -109,22 +109,23 @@
   }
 
   async function deleteExpense (expenseId) {
-    try {
-      const response = await $fetch(`/api/construction/${constructionId}/expense/delete`, {
-        method: 'DELETE',
-        body: {
-          expenseId: expenseId
-        }
-      })
-
-      if (response) {
-        $toast.success('Custo removido')
+  try {
+    const response = await $fetch(`/api/construction/${constructionId}/expense/delete`, {
+      method: 'DELETE',
+      body: {
+        expenseId: expenseId
       }
-    } catch (error) {
-      console.error(error)
-      $toast.error('Erro ao remover custo')
+    })
+
+    if (response) {
+      expenses.value = expenses.value.filter(expense => expense.id !== expenseId) // Add this line
+      $toast.success('Custo removido')
     }
+  } catch (error) {
+    console.error(error)
+    $toast.error('Erro ao remover custo')
   }
+}
 </script>
 
 <style scoped lang="scss">

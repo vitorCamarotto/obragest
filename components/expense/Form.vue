@@ -21,6 +21,7 @@
         class="mb-5"
         v-model="date"
         :format="'dd/MM/yyyy'"
+        :teleport="true"
         show-now-button
         now-button-label="Hoje"
         :enable-time-picker="false"

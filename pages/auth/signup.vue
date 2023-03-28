@@ -76,8 +76,8 @@
 
     try {
       await client.auth.signUp({
-        email: this.email,
-        password: this.password
+        email: email.value,
+        password: password.value
       })
 
       $toast.success('Sucesso! Verifique seu email')

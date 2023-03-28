@@ -21,7 +21,7 @@
       <div class="flex justify-center">
         <v-btn
           @click.prevent="submit"
-          v-if="!isProcessing"
+          v-show="!isProcessing"
           class="submit-btn"
           size="large"
           variant="elevated"
@@ -30,7 +30,7 @@
         </v-btn>
         <v-progress-circular
           indeterminate
-          v-if="isProcessing"
+          v-show="isProcessing"
           class="progress-circle"
         />
       </div>

@@ -63,8 +63,10 @@
   const signIn = async () => {
     isProcessing.value = true
 
+    const trimmedEmail = email.value.trim()
+
     const { error } = await client.auth.signInWithPassword({
-      email: email.value,
+      email: trimmedEmail,
       password: password.value
     })
 

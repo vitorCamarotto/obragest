@@ -28,6 +28,11 @@
                   <div>
                     {{ expense.formattedDate }}
                   </div>
+                  <v-divider class="border-opacity-100"></v-divider>
+                  <div>
+                    {{ expense.payment_method }}
+                  </div>
+                  <v-divider class="border-opacity-100"></v-divider>
                   <div>
                     {{ expense.description }}
                   </div>

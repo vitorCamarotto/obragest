@@ -50,6 +50,7 @@
 
 <script setup>
   const { $toast } = useNuxtApp()
+  const loggedUser = useSupabaseUser()
 
   // initial setup
   definePageMeta({

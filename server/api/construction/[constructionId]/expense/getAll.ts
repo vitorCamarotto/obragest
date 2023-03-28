@@ -10,6 +10,9 @@ export default defineEventHandler(async (event) => {
       const expenses = await prisma.expense.findMany({
         where: {
           construction_id: constructionId
+        },
+        orderBy: {
+          created_at: 'desc'
         }
       })
 

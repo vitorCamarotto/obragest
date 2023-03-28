@@ -97,7 +97,7 @@
       })
 
       if (response) {
-        expenses.value.push(response)
+        expenses.value.unshift(response)
         showForm.value = false
         $toast.success('Custo adicionado')
       }

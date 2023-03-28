@@ -33,16 +33,16 @@
     <div class="construction-cards">
       <Transition name="blur" mode="out-in">
         <div>
+          <ConstructionCards
+            v-if="!isProcessing"
+            :constructions="cardConstructions"
+            @on-card-click="onCardClick"
+          />
           <v-progress-circular
             :size="100"
             indeterminate
             v-show="isProcessing"
             class="progress-circle"
-          />
-          <ConstructionCards
-            v-show="!isProcessing"
-            :constructions="cardConstructions"
-            @on-card-click="onCardClick"
           />
         </div>
       </Transition>

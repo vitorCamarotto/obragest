@@ -62,12 +62,18 @@
       <div class="flex justify-center">
         <v-btn
           @click.prevent="submit"
+          v-if="!isProcessing"
           class="submit-btn"
           size="large"
           variant="elevated"
         >
           Adicionar custo
         </v-btn>
+        <v-progress-circular
+          indeterminate
+          v-if="isProcessing"
+          class="progress-circle"
+        />
       </div>
     </v-form>
   </v-card>
@@ -78,8 +84,6 @@ import { expense_types, payment_methods } from '~~/constants'
 import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
-
-
 const datepicker = ref(null)
 const form = ref(null)
 const valid = ref(false)
@@ -88,6 +92,8 @@ const type = ref('')
 const amount = ref('')
 const date = ref(null)
 const paymentMethod = ref('')
+
+let isProcessing = ref(false)
 
 const nameRules = [
     v => !!v || 'Nome da obra é obrigatório',
@@ -106,6 +112,7 @@ function validate () {
   }
 
 function submit () {
+  isProcessing.value = true
   validate()
 
   let params = {
@@ -119,6 +126,8 @@ function submit () {
   if (valid.value) {
     emit('onFormSubmit', params)
   }
+
+  isProcessing.value = false
 }
 
 function selectDate () {
@@ -176,5 +185,8 @@ function closeForm () {
   justify-content: flex-end;
   font-size: 32px;
   cursor: pointer;
+}
+.progress-circle {
+  color: var(--color-primary);
 }
 </style>

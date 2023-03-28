@@ -21,18 +21,26 @@
       <div class="flex justify-center">
         <v-btn
           @click.prevent="submit"
+          v-if="!isProcessing"
           class="submit-btn"
           size="large"
           variant="elevated"
         >
           Adicionar Obra
         </v-btn>
+        <v-progress-circular
+          indeterminate
+          v-if="isProcessing"
+          class="progress-circle"
+        />
       </div>
     </v-form>
   </v-card>
 </template>
 
 <script setup>
+  let isProcessing = ref(false)
+
   const form = ref(null)
   const valid = ref(false)
   const name = ref('')
@@ -53,11 +61,15 @@
   }
 
   function submit() {
+    isProcessing.value = true
+
     validate()
 
     if (valid.value) {
       emit('onFormSubmit', name)
     }
+
+    isProcessing.value = false
   }
 
   function closeForm () {
@@ -78,5 +90,9 @@
   font-size: 32px;
   margin-bottom: 24px;
   cursor: pointer;
+}
+
+.progress-circle {
+  color: var(--color-primary);
 }
 </style>

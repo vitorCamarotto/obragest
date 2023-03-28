@@ -57,6 +57,7 @@
     form.value.validate().then(response => {
       let isValid = response.valid
       valid.value = isValid
+      isProcessing.value = false
     })
   }
 
@@ -68,8 +69,6 @@
     if (valid.value) {
       emit('onFormSubmit', name)
     }
-
-    isProcessing.value = false
   }
 
   function closeForm () {

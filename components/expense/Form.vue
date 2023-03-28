@@ -106,10 +106,11 @@ const emit = defineEmits([
 
 function validate () {
   form.value.validate().then(response => {
-      let isValid = response.valid
-      valid.value = isValid
-    })
-  }
+    let isValid = response.valid
+    valid.value = isValid
+    isProcessing.value = false
+  })
+}
 
 function submit () {
   isProcessing.value = true
@@ -126,8 +127,6 @@ function submit () {
   if (valid.value) {
     emit('onFormSubmit', params)
   }
-
-  isProcessing.value = false
 }
 
 function selectDate () {
